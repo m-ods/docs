@@ -47,6 +47,12 @@
       "name": "Blog",
       "icon": "newspaper",
       "url": "https://mintlify.com/blog"
+    },
+    {
+      "name": "API Reference",
+      "openapi": "https://raw.githubusercontent.com/AssemblyAI/assemblyai-api-spec/refs/heads/main/openapi.yml",
+      "url": "api-reference",
+      "icon": "square-terminal"
     }
   ],
   "navigation": [
