@@ -11,13 +11,12 @@
     {
       "group": "Overview",
       "pages": [
-        "getting-started"
+        "/"
       ]
     },
     {
       "group": "Getting started",
       "pages": [
-        "getting-started",
         "getting-started/transcribe-an-audio-file",
         {
           "group": "Transcribe streaming audio from a microphone",
