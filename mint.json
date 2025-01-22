@@ -1,98 +1,143 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
-  "openapi": "https://raw.githubusercontent.com/AssemblyAI/assemblyai-api-spec/refs/heads/main/openapi.yml",
-  "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
-  },
-  "favicon": "/favicon.svg",
+  "name": "AssemblyAI Docs",
   "colors": {
     "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
-    "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
-    }
+    "light": "#55D799",
+    "dark": "#0D9373"
   },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
-    }
-  ],
-  "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
-  },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
-  "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
-    },
-    {
-      "name": "API Reference",
-      "openapi": "https://raw.githubusercontent.com/AssemblyAI/assemblyai-api-spec/refs/heads/main/openapi.yml",
-      "url": "api-reference",
-      "icon": "square-terminal"
-    }
-  ],
+  "favicon": "/favicon.svg",
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Overview",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "getting-started"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Getting started",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "getting-started",
+        "getting-started/transcribe-an-audio-file",
+        {
+          "group": "Transcribe streaming audio from a microphone",
+          "pages": [
+            "getting-started/transcribe-streaming-audio-from-a-microphone",
+            "getting-started/transcribe-streaming-audio-from-a-microphone/python",
+            "getting-started/transcribe-streaming-audio-from-a-microphone/typescript",
+            "getting-started/transcribe-streaming-audio-from-a-microphone/go",
+            "getting-started/transcribe-streaming-audio-from-a-microphone/csharp",
+            "getting-started/transcribe-streaming-audio-from-a-microphone/java"
+          ]
+        },
+        "getting-started/apply-llms-to-audio-files",
+        "getting-started/webhooks",
+        "getting-started/supported-languages",
+        "getting-started/usage-limits"
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Cookbooks",
       "pages": [
-        "api-reference/introduction"
+        "guides/transcribing-an-audio-file",
+        "guides/generating-subtitles-for-videos",
+        "guides/real-time-streaming-transcription",
+        "guides/summarizing-virtual-meetings",
+        "guides/identifying-hate-speech-in-audio-or-video-files",
+        "guides/identifying-highlights-in-audio-or-video-files",
+        "guides/identifying-speakers-in-audio-recordings",
+        "guides/creating-summarized-chapters-from-podcasts",
+        "guides/automatic-language-detection-workflow",
+        "guides/generate-meeting-action-items-with-lemur",
+        "guides/process-speaker-labels-with-lemur",
+        "guides"
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Speech-to-Text",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "speech-to-text",
+        "speech-to-text/speech-recognition",
+        "speech-to-text/speaker-diarization",
+        "speech-to-text/streaming"
+      ]
+    },
+    {
+      "group": "LeMUR - LLMs for speech",
+      "pages": [
+        "lemur",
+        "lemur/summarize-audio",
+        "lemur/ask-questions",
+        "lemur/examples",
+        "lemur/customize-parameters",
+        "lemur/improving-your-prompt"
+      ]
+    },
+    {
+      "group": "Audio Intelligence",
+      "pages": [
+        "audio-intelligence",
+        "audio-intelligence/summarization",
+        "audio-intelligence/content-moderation",
+        "audio-intelligence/sentiment-analysis",
+        "audio-intelligence/entity-detection",
+        "audio-intelligence/topic-detection",
+        "audio-intelligence/auto-chapters",
+        "audio-intelligence/key-phrases",
+        "audio-intelligence/pii-redaction"
+      ]
+    },
+    {
+      "group": "Integrations",
+      "pages": [
+        "integrations",
+        {
+          "group": "LangChain",
+          "pages": [
+            "integrations/langchain",
+            "integrations/langchain/python",
+            "integrations/langchain/js"
+          ]
+        },
+        {
+          "group": "LlamaIndex",
+          "pages": [
+            "integrations/llamaindex",
+            "integrations/llamaindex/python",
+            "integrations/llamaindex/ts"
+          ]
+        },
+        "integrations/semantic-kernel",
+        "integrations/activepieces",
+        "integrations/make",
+        "integrations/postman",
+        "integrations/power-automate",
+        "integrations/zapier",
+        "integrations/rivet",
+        "integrations/haystack",
+        "integrations/twilio",
+        "integrations/no-code",
+        "external-link-1",
+        "external-link-2",
+        {
+          "group": "Community",
+          "pages": [
+            "integrations/community",
+            "external-link-3",
+            "external-link-4",
+            "external-link-5",
+            "external-link-6"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Concepts",
+      "pages": [
+        "concepts",
+        "concepts/cli",
+        "concepts/faq"
       ]
     }
-  ],
-  "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
-  }
+  ]
 }

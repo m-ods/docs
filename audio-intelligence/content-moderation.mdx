@@ -1,0 +1,108 @@
+---
+title: "Content Moderation"
+description: "The Content Moderation model lets you detect inappropriate content in audio files to ensure that your content is safe for all audiences."
+---
+
+The model pinpoints sensitive discussions in spoken data and their severity.
+
+## Quickstart[​](#quickstart "Direct link to Quickstart")
+
+Enable Content Moderation by setting `content_safety` to `true` in the transcription config.
+
+### Example output[​](#example-output "Direct link to Example output")
+
+```
+Smoke from hundreds of wildfires in Canada is triggering air quality alerts throughout the US. Skylines...Timestamp: 250 - 28920disasters - 0.8141 - 0.4014So what is it about the conditions right now that have caused this round of wildfires to...Timestamp: 29290 - 56190disasters - 0.9217 - 0.5665So what is it in this haze that makes it harmful? And I'm assuming it is...Timestamp: 56340 - 88034health_issues - 0.9358 - 0.8906...99.42% confident that the audio contains disasters92.70% confident that the audio contains health_issues57.43% confident that the audio contains low-severity disasters42.56% confident that the audio contains mid-severity disasters0.0% confident that the audio contains high-severity disasters23.57% confident that the audio contains low-severity health_issues30.22% confident that the audio contains mid-severity health_issues46.19% confident that the audio contains high-severity health_issues
+```
+
+## Adjust the confidence threshold[​](#adjust-the-confidence-threshold "Direct link to Adjust the confidence threshold")
+
+The confidence threshold determines how likely something is to be flagged as inappropriate content. A threshold of 50% (which is the default) means any label with a confidence score of 50% or greater is flagged.
+
+To adjust the confidence threshold for your transcription, include `content_safety_confidence` in the transcription config.
+
+## API reference[​](#api-reference "Direct link to API reference")
+
+### Request[​](#request "Direct link to Request")
+
+```
+curl https://api.assemblyai.com/v2/transcript \--header "Authorization: YOUR_API_KEY"  \--header "Content-Type: application/json" \--data '{  "audio_url": "YOUR_AUDIO_URL",  "content_safety": true,  "content_safety_confidence": 50}'
+```
+
+| Key                         | Type    | Description                                                                         |
+| --------------------------- | ------- | ----------------------------------------------------------------------------------- |
+| `content_safety`            | boolean | Enable Content Moderation.                                                          |
+| `content_safety_confidence` | integer | The confidence threshold for content moderation. Values must be between 25 and 100. |
+
+### Response[​](#response "Direct link to Response")
+
+```
+```
+
+| Key                                                                      | Type   | Description                                                                                                                 |
+| ------------------------------------------------------------------------ | ------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `content_safety_labels`                                                  | object | An object containing all results of the Content Moderation model.                                                           |
+| `content_safety_labels.status`                                           | string | Is either `success`, or `unavailable` in the rare case that the Content Moderation model failed.                            |
+| `content_safety_labels.results`                                          | array  | An array of objects, one for each section in the audio file that the Content Moderation file flagged.                       |
+| `content_safety_labels.results[i].text`                                  | string | The transcript of the i-th section flagged by the Content Moderation model.                                                 |
+| `content_safety_labels.results[i].labels`                                | array  | An array of objects, one per sensitive topic that was detected in the i-th section.                                         |
+| `content_safety_labels.results[i].labels[j].label`                       | string | The label of the sensitive topic.                                                                                           |
+| `content_safety_labels.results[i].labels[j].confidence`                  | number | The confidence score for the j-th topic being discussed in the i-th section, from 0 to 1.                                   |
+| `content_safety_labels.results[i].labels[j].severity`                    | number | How severely the j-th topic is discussed in the i-th section, from 0 to 1.                                                  |
+| `content_safety_labels.results[i].sentences_idx_start`                   | number | The sentence index at which the i-th section begins.                                                                        |
+| `content_safety_labels.results[i].sentences_idx_end`                     | number | The sentence index at which the i-th section ends.                                                                          |
+| `content_safety_labels.results[i].timestamp`                             | object | Timestamp information for the i-th section.                                                                                 |
+| `content_safety_labels.results[i].timestamp.start`                       | number | The time, in milliseconds, at which the i-th section begins.                                                                |
+| `content_safety_labels.results[i].timestamp.end`                         | number | The time, in milliseconds, at which the i-th section ends.                                                                  |
+| `content_safety_labels.summary`                                          | object | A summary of the Content Moderation confidence results for the entire audio file.                                           |
+| `content_safety_labels.summary.topic`                                    | number | A confidence score for the presence of the sensitive topic "topic" across the entire audio file.                            |
+| `content_safety_labels.severity_score_summary`                           | object | A summary of the Content Moderation severity results for the entire audio file.                                             |
+| `content_safety_labels.severity_score_summary.topic.[low, medium, high]` | number | A distribution across the values "low", "medium", and "high" for the severity of the presence of "topic" in the audio file. |
+
+The response also includes the request parameters used to generate the transcript.
+
+## Supported labels[​](#supported-labels "Direct link to Supported labels")
+
+| Label                   | Description                                                                                                                                                                                                      | Model output              | Severity |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | -------- |
+| Accidents               | Any man-made incident that happens unexpectedly and results in damage, injury, or death.                                                                                                                         | `accidents`               | Yes      |
+| Alcohol                 | Content that discusses any alcoholic beverage or its consumption.                                                                                                                                                | `alcohol`                 | Yes      |
+| Company Financials      | Content that discusses any sensitive company financial information.                                                                                                                                              | `financials`              | No       |
+| Crime Violence          | Content that discusses any type of criminal activity or extreme violence that is criminal in nature.                                                                                                             | `crime_violence`          | Yes      |
+| Drugs                   | Content that discusses illegal drugs or their usage.                                                                                                                                                             | `drugs`                   | Yes      |
+| Gambling                | Includes gambling on casino-based games such as poker, slots, etc. as well as sports betting.                                                                                                                    | `gambling`                | Yes      |
+| Hate Speech             | Content that's a direct attack against people or groups based on their sexual orientation, gender identity, race, religion, ethnicity, national origin, disability, etc.                                         | `hate_speech`             | Yes      |
+| Health Issues           | Content that discusses any medical or health-related problems.                                                                                                                                                   | `health_issues`           | Yes      |
+| Manga                   | Mangas are comics or graphic novels originating from Japan with some of the more popular series being "Pokemon", "Naruto", "Dragon Ball Z", "One Punch Man", and "Sailor Moon".                                  | `manga`                   | No       |
+| Marijuana               | This category includes content that discusses marijuana or its usage.                                                                                                                                            | `marijuana`               | Yes      |
+| Natural Disasters       | Phenomena that happens infrequently and results in damage, injury, or death. Such as hurricanes, tornadoes, earthquakes, volcano eruptions, and firestorms.                                                      | `disasters`               | Yes      |
+| Negative News           | News content with a negative sentiment which typically occur in the third person as an unbiased recapping of events.                                                                                             | `negative_news`           | No       |
+| NSFW (Adult Content)    | Content considered "Not Safe for Work" and consists of content that a viewer would not want to be heard/seen in a public environment.                                                                            | `nsfw`                    | No       |
+| Pornography             | Content that discusses any sexual content or material.                                                                                                                                                           | `pornography`             | Yes      |
+| Profanity               | Any profanity or cursing.                                                                                                                                                                                        | `profanity`               | Yes      |
+| Sensitive Social Issues | This category includes content that may be considered insensitive, irresponsible, or harmful to certain groups based on their beliefs, political affiliation, sexual orientation, or gender identity.            | `sensitive_social_issues` | No       |
+| Terrorism               | Includes terrorist acts as well as terrorist groups. Examples include bombings, mass shootings, and ISIS. Note that many texts corresponding to this topic may also be classified into the crime violence topic. | `terrorism`               | Yes      |
+| Tobacco                 | Text that discusses tobacco and tobacco usage, including e-cigarettes, nicotine, vaping, and general discussions about smoking.                                                                                  | `tobacco`                 | Yes      |
+| Weapons                 | Text that discusses any type of weapon including guns, ammunition, shooting, knives, missiles, torpedoes, etc.                                                                                                   | `weapons`                 | Yes      |
+
+## Frequently asked questions[​](#frequently-asked-questions "Direct link to Frequently asked questions")
+
+Why is the Content Moderation model not detecting sensitive content in my audio file?
+
+There could be a few reasons for this. First, make sure that the audio file contains speech, and not just background noise or music. Additionally, the model may not have been trained on the specific type of sensitive content you're looking for. If you believe the model should be able to detect the content but it's not, you can reach out to AssemblyAI's support team for assistance.
+
+Why is the Content Moderation model flagging content that isn't actually sensitive?
+
+The model may occasionally flag content as sensitive that isn't actually problematic. This can happen if the model isn't trained on the specific context or nuances of the language being used. In these cases, you can manually review the flagged content and determine if it's actually sensitive or not. If you believe the model is consistently flagging content incorrectly, you can contact AssemblyAI's support team to report the issue.
+
+How do I know which specific parts of the audio file contain sensitive content?
+
+The Content Moderation model provides segment-level results that pinpoint where in the audio the sensitive content was discussed, as well as the degree to which it was discussed. You can access this information in the results key of the API response. Each result in the list contains a text key that shows the sensitive content, and a labels key that shows the detected sensitive topics along with their confidence and severity scores.
+
+Can the Content Moderation model be used in real-time applications?
+
+The model is designed to process batches of segments in significantly less than 1 second, making it suitable for real-time applications. However, keep in mind that the actual processing time depends on the length of the audio file and the number of segments it's divided into. Additionally, the model may occasionally require additional time to process particularly complex or long segments.
+
+Why am I receiving an error message when using the Content Moderation model?
+
+If you receive an error message, it may be due to an issue with your request format or parameters. Double-check that your request includes the correct `audio_url` parameter. If you continue to experience issues, you can reach out to AssemblyAI's support team for assistance.

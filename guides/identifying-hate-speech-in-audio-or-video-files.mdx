@@ -1,0 +1,59 @@
+---
+title: "Identifying hate speech in audio or video files"
+description: "Our  model can help you ensure that your content is safe and appropriate for all audiences."
+---
+
+The model pinpoints sensitive discussions in spoken data and provides information on the severity to which they occurred.
+
+In this guide, we'll learn how to use the Content Moderation model, and look at an example response to understand its structure.
+
+## Get started[​](#get-started "Direct link to Get started")
+
+Before we begin, make sure you have an AssemblyAI account and an API key. You can [sign up](https://assemblyai.com/dashboard/signup) for a free account and get your API key from your dashboard.
+
+The complete source code for this guide can be viewed [here](https://github.com/AssemblyAI-Community/docs-snippets/tree/main/hate-speech).
+
+Here is an audio example for this guide:
+
+```
+https://assembly.ai/wildfires.mp3
+```
+
+## Step-by-step instructions[​](#step-by-step-instructions "Direct link to Step-by-step instructions")
+
+1. 1
+
+   Create a new file and import the necessary libraries for making an HTTP request.
+
+2. 2
+
+   Set up the API endpoint and headers. The headers should include your API key.
+
+3. 3
+
+   Upload your local file to the AssemblyAI API.
+
+4. 4
+
+   Use the `upload_url` returned by the AssemblyAI API to create a JSON payload containing the `audio_url` parameter and the `content_safety` parameter set to `True`.
+
+5. 5
+
+   Make a `POST` request to the AssemblyAI API endpoint with the payload and headers.
+
+6. 6
+
+   After making the request, you'll receive an ID for the transcription. Use it to poll the API every few seconds to check the status of the transcript job. Once the status is `completed`, you can retrieve the transcript from the API response, using the `content_safety_labels` key to view the results.
+
+## Understanding the response[​](#understanding-the-response "Direct link to Understanding the response")
+
+In the JSON response, there'll be an additional key called `content_safety_labels` that contains information about any sensitive content detected. The full text is contained in the `text` key, and each problematic utterance has its own `labels` and `timestamp`. The entire audio is assigned a `summary` and a `severity_score_summary` for each category of unsafe content. Each label is returned with a confidence score and a severity score.
+
+```
+```
+
+For more information, see [Content Moderation model documentation](/docs/audio-intelligence/content-moderation#understanding-the-response) and [API reference](https://assemblyai.com/docs/api-reference/transcripts).
+
+## Conclusion[​](#conclusion "Direct link to Conclusion")
+
+The AssemblyAI API supports many different [content safety labels](/docs/audio-intelligence/content-moderation#all-labels-supported-by-the-model). Identifying hate speech is only a single, important use case for automated content moderation, and you can learn about others on the [AssemblyAI blog](https://www.assemblyai.com/blog/content-moderation-what-it-is-how-it-works-best-apis-2/).

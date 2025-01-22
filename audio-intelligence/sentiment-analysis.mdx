@@ -1,0 +1,65 @@
+---
+title: "Sentiment Analysis"
+description: "The Sentiment Analysis model detects the sentiment of each spoken sentence in the transcript text. Use Sentiment Analysis to get a detailed analysis of the positive, negative, or neutral sentiment conveyed in the audio, along with a confidence score for each result."
+---
+
+## Quickstart[​](#quickstart "Direct link to Quickstart")
+
+Enable Sentiment Analysis by setting `sentiment_analysis` to `true` in the transcription config.
+
+### Example output[​](#example-output "Direct link to Example output")
+
+```
+Smoke from hundreds of wildfires in Canada is triggering air quality alerts throughout the US.SentimentType.negative0.8181032538414001Timestamp: 250 - 6350...
+```
+
+## Add speaker labels to sentiments[​](#add-speaker-labels-to-sentiments "Direct link to Add speaker labels to sentiments")
+
+To add speaker labels to each sentiment analysis result, using [Speaker Diarization](/docs/speech-to-text/speaker-diarization), enable `speaker_labels` in the transcription config.
+
+Each sentiment result will then have a `speaker` field that contains the speaker label.
+
+## API reference[​](#api-reference "Direct link to API reference")
+
+### Request[​](#request "Direct link to Request")
+
+```
+curl https://api.assemblyai.com/v2/transcript \--header "Authorization: YOUR_API_KEY"  \--header "Content-Type: application/json" \--data '{  "audio_url": "YOUR_AUDIO_URL",  "sentiment_analysis": true}'
+```
+
+| Key                  | Type    | Description                |
+| -------------------- | ------- | -------------------------- |
+| `sentiment_analysis` | boolean | Enable Sentiment Analysis. |
+
+### Response[​](#response "Direct link to Response")
+
+```
+```
+
+| Key                                        | Type           | Description                                                                                                                |
+| ------------------------------------------ | -------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `sentiment_analysis_results`               | array          | A temporal sequence of Sentiment Analysis results for the audio file, one element for each sentence in the file.           |
+| `sentiment_analysis_results[i].text`       | string         | The transcript of the i-th sentence.                                                                                       |
+| `sentiment_analysis_results[i].start`      | number         | The starting time, in milliseconds, of the i-th sentence.                                                                  |
+| `sentiment_analysis_results[i].end`        | number         | The ending time, in milliseconds, of the i-th sentence.                                                                    |
+| `sentiment_analysis_results[i].sentiment`  | string         | The detected sentiment for the i-th sentence, one of `POSITIVE`, `NEUTRAL`, `NEGATIVE`.                                    |
+| `sentiment_analysis_results[i].confidence` | number         | The confidence score for the detected sentiment of the i-th sentence, from 0 to 1.                                         |
+| `sentiment_analysis_results[i].speaker`    | string or null | The speaker of the i-th sentence if [Speaker Diarization](/docs/speech-to-text/speaker-diarization) is enabled, else null. |
+
+## Frequently asked questions[​](#frequently-asked-questions "Direct link to Frequently asked questions")
+
+What if the model predicts the wrong sentiment label for a sentence?
+
+The Sentiment Analysis model is based on the interpretation of the transcript and may not always accurately capture the intended sentiment of the speaker. It's recommended to take into account the context of the transcript and to validate the sentiment analysis results with human judgment when possible.
+
+What if the transcript contains sensitive or offensive content?
+
+The [Content Moderation model](/docs/audio-intelligence/content-moderation) can be used to identify and filter out sensitive or offensive content from the transcript.
+
+What if the sentiment analysis results aren't consistent with my expectations?
+
+It's important to ensure that the audio being analyzed is relevant to your use case. Additionally, it's recommended to take into account the context of the transcript and to evaluate the confidence score for each sentiment label.
+
+What if the sentiment analysis is taking too long to process?
+
+The Sentiment Analysis model is designed to be fast and efficient, but processing times may vary depending on the size of the audio file and the complexity of the language used. If you experience longer processing times than expected, don't hesitate to contact our support team.

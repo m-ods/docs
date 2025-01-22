@@ -1,0 +1,83 @@
+---
+title: "Apply LLMs to audio files"
+description: "Learn how to leverage LLMs for speech using LeMUR."
+---
+
+## Overview[​](#overview "Direct link to Overview")
+
+A Large Language Model (LLM) is a machine learning model that uses natural language processing (NLP) to generate text. [LeMUR](https://assemblyai.com/docs/api-reference/lemur) is a framework that lets you apply LLMs to audio transcripts, for example to ask questions about a call, or to summarize a meeting.
+
+By the end of this tutorial, you'll be able to use LeMUR to summarize an audio file.
+
+Here's the full sample code for what you'll build in this tutorial:
+
+If you run the code above, you'll see the following output:
+
+```
+The transcript describes several common sports injuries - runner's knee,sprained ankle, meniscus tear, rotator cuff tear, and ACL tear. It providesdefinitions, causes, and symptoms for each injury. The transcript seems to benarrating sports footage and describing injuries as they occur to the athletes.Overall, it provides an overview of these common sports injuries that can resultfrom overuse or sudden trauma during athletic activities
+```
+
+## Before you begin[​](#before-you-begin "Direct link to Before you begin")
+
+To complete this tutorial, you need:
+
+* [Python](https://www.python.org/), [TypeScript](https://www.typescriptlang.org/), [Go](https://go.dev), Java, [.NET](https://dotnet.microsoft.com/en-us/download), or [Ruby](https://www.ruby-lang.org/en/documentation/installation/) installed.
+* An .
+* Basic understanding of how to [Transcribe an audio file](/docs/getting-started/transcribe-an-audio-file).
+
+## Step 1: Install the SDK[​](#step-1-install-the-sdk "Direct link to Step 1: Install the SDK")
+
+Install the package via pip:
+
+## Step 2: Transcribe an audio file[​](#step-2-transcribe-an-audio-file "Direct link to Step 2: Transcribe an audio file")
+
+LeMUR uses one or more transcripts as input to generate text output. In this step, you'll transcribe an audio file that you can later use to create a prompt for.
+
+For more information about transcribing audio, see [Transcribe an audio file](/docs/getting-started/transcribe-an-audio-file).
+
+<Check>
+  If you've already transcribed an audio file you want to use, you can get an existing transcript using its ID. You can find the ID for previously transcribed audio files in the .
+</Check>
+
+## Step 3: Prompt LeMUR to generate text output[​](#step-3-prompt-lemur-to-generate-text-output "Direct link to Step 3: Prompt LeMUR to generate text output")
+
+In this step, you'll create a [Custom task](https://assemblyai.com/docs/api-reference/lemur/task) with LeMUR and use the transcript you created in the previous step as input.
+
+The input to a custom task is called a *prompt*. A prompt is a text string that provides LeMUR with instructions on how to generate the text output.
+
+For more techniques on how to build prompts, see [Improving your prompt](/docs/lemur/improving-your-prompt).
+
+1. 1
+
+   Write a prompt with instructions on how LeMUR should generate the text output.
+
+2. 2
+
+   Create a custom task with LeMUR, using the transcript and prompt as input. The final model defines the LLM to use to process the task. For available models to choose from, see [Change the model type](/docs/lemur/customize-parameters#change-the-model-type).
+
+3. 3
+
+   Print the result.
+
+   The output will look something like this:
+
+   ```
+    The transcript describes several common sports injuries - runner's knee, sprained ankle, meniscus tear, rotator cuff tear, and ACL tear. It provides definitions, causes, and symptoms for each injury. The transcript seems to be narrating sports footage and describing injuries as they occur to the athletes. Overall, it provides an overview of these common sports injuries that can result from overuse or sudden trauma during athletic activities
+   ```
+
+## Next steps[​](#next-steps "Direct link to Next steps")
+
+In this tutorial, you've learned how to generate LLM output based on your audio transcripts. The type of output depends on your prompt, so try exploring different prompts to see how they affect the output. Here's a few more prompts to try.
+
+* "Provide an analysis of the transcript and offer areas to improve with exact quotes."
+* "What's the main take-away from the transcript?"
+* "Generate a set of action items from this transcript."
+
+To learn more about how to apply LLMs to your transcripts, see the following resources:
+
+* [Ask questions about your audio data using LeMUR](/docs/lemur/ask-questions)
+* [Writing good prompts](/docs/lemur/improving-your-prompt)
+
+## Need some help?[​](#need-some-help "Direct link to Need some help?")
+
+If you get stuck, or have any other questions, we'd love to help you out. Ask our support team in our [Discord server](https://discord.gg/aSMMpMadFh).

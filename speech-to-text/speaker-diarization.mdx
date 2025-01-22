@@ -1,0 +1,83 @@
+---
+title: "Speaker Diarization"
+description: "The Speaker Diarization model lets you detect multiple speakers in an audio file and what each speaker said."
+---
+
+If you enable Speaker Diarization, the resulting transcript will return a list of *utterances*, where each utterance corresponds to an uninterrupted segment of speech from a single speaker.
+
+<Warning>
+  Speaker Diarization doesn't support multichannel transcription. Enabling both Speaker Diarization and [multichannel](/docs/speech-to-text/speech-recognition#multichannel-transcription) will result in an error.
+</Warning>
+
+## Quickstart[​](#quickstart "Direct link to Quickstart")
+
+To enable Speaker Diarization, set `speaker_labels` to `true` in the transcription config.
+
+### Example output[​](#example-output "Direct link to Example output")
+
+```
+Speaker A: Smoke from hundreds of wildfires in Canada is triggering air quality alerts throughout the US. Skylines from Maine to Maryland to Minnesota are gray and smoggy. And in some places, the air quality warnings include the warning to stay inside. We wanted to better understand what's happening here and why, so we called Peter DiCarlo, an associate professor in the Department of Environmental Health and Engineering at Johns Hopkins University. Good morning, professor.Speaker B: Good morning.Speaker A: So what is it about the conditions right now that have caused this round of wildfires to affect so many people so far away?Speaker B: Well, there's a couple of things. The season has been pretty dry already, and then the fact that we're getting hit in the US. Is because there's a couple of weather systems that are essentially channeling the smoke from those Canadian wildfires through Pennsylvania into the Mid Atlantic and the Northeast and kind of just dropping the smoke there.Speaker A: So what is it in this haze that makes it harmful? And I'm assuming it is....
+```
+
+## Set number of speakers[​](#set-number-of-speakers "Direct link to Set number of speakers")
+
+If you know the number of speakers in advance, you can improve the diarization performance by setting the `speakers_expected` parameter.
+
+<Note>
+  The `speakers_expected` parameter is ignored for audio files with a duration less than 2 minutes.
+</Note>
+
+## API reference[​](#api-reference "Direct link to API reference")
+
+### Request[​](#request "Direct link to Request")
+
+```
+curl https://api.assemblyai.com/v2/transcript \--header "Authorization: YOUR_API_KEY"  \--header "Content-Type: application/json" \--data '{  "audio_url": "YOUR_AUDIO_URL",  "speaker_labels": true,  "speakers_expected": 3}'
+```
+
+| Key                | Type    | Description                                        |
+| ------------------ | ------- | -------------------------------------------------- |
+| `speaker_labels`   | boolean | Enable Speaker Diarization.                        |
+| `speaker_expected` | number  | [Set number of speakers](#set-number-of-speakers). |
+
+### Response[​](#response "Direct link to Response")
+
+```
+```
+
+| Key                                 | Type   | Description                                                                                                                                                |
+| ----------------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `utterances`                        | array  | A turn-by-turn temporal sequence of the transcript, where the i-th element is an object containing information about the i-th utterance in the audio file. |
+| `utterances[i].confidence`          | number | The confidence score for the transcript of this utterance.                                                                                                 |
+| `utterances[i].end`                 | number | The ending time, in milliseconds, of the utterance in the audio file.                                                                                      |
+| `utterances[i].speaker`             | string | The speaker of this utterance, where each speaker is assigned a sequential capital letter. For example, "A" for Speaker A, "B" for Speaker B, and so on.   |
+| `utterances[i].start`               | number | The starting time, in milliseconds, of the utterance in the audio file.                                                                                    |
+| `utterances[i].text`                | string | The transcript for this utterance.                                                                                                                         |
+| `utterances[i].words`               | array  | A sequential array for the words in the transcript, where the j-th element is an object containing information about the j-th word in the utterance.       |
+| `utterances[i].words[j].text`       | string | The text of the j-th word in the i-th utterance.                                                                                                           |
+| `utterances[i].words[j].start`      | number | The starting time for when the j-th word is spoken in the i-th utterance, in milliseconds.                                                                 |
+| `utterances[i].words[j].end`        | number | The ending time for when the j-th word is spoken in the i-th utterance, in milliseconds.                                                                   |
+| `utterances[i].words[j].confidence` | number | The confidence score for the transcript of the j-th word in the i-th utterance.                                                                            |
+| `utterances[i].words[j].speaker`    | string | The speaker who uttered the j-th word in the i-th utterance.                                                                                               |
+
+The response also includes the request parameters used to generate the transcript.
+
+## Frequently asked questions[​](#frequently-asked-questions "Direct link to Frequently asked questions")
+
+How can I improve the performance of the Speaker Diarization model?
+
+To improve the performance of the Speaker Diarization model, it's recommended to ensure that each speaker speaks for at least 30 seconds uninterrupted. Avoiding scenarios where a person only speaks a few short phrases like “Yeah”, “Right”, or “Sounds good” can also help. If possible, avoiding cross-talking can also improve performance.
+
+How many speakers can the model handle?
+
+The upper limit on the number of speakers for Speaker Diarization is 10.
+
+How accurate is the Speaker Diarization model?
+
+The accuracy of the Speaker Diarization model depends on several factors, including the quality of the audio, the number of speakers, and the length of the audio file. Ensuring that each speaker speaks for at least 30 seconds uninterrupted and avoiding scenarios where a person only speaks a few short phrases can improve accuracy. However, it's important to note that the model isn't perfect and may make mistakes, especially in more challenging scenarios.
+
+## Troubleshooting[​](#troubleshooting "Direct link to Troubleshooting")
+
+Why is the speaker diarization not performing as expected?
+
+The speaker diarization may be performing poorly if a speaker only speaks once or infrequently throughout the audio file. Additionally, if the speaker speaks in short or single-word utterances, the model may struggle to create separate clusters for each speaker. Lastly, if the speakers sound similar, there may be difficulties in accurately identifying and separating them. Background noise, cross-talk, or an echo may also cause issues.

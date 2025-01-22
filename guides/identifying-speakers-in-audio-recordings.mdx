@@ -1,0 +1,63 @@
+---
+title: "Identifying speakers in audio recordings"
+description: "When applying the , the transcription not only contains the text but also includes speaker labels, enhancing the overall structure and organization of the output."
+---
+
+In this step-by-step guide, you'll learn how to apply the model. In short, you have to send the `speaker_labels` parameter in your request, and then find the results inside a field called `utterances`.
+
+## Get started[​](#get-started "Direct link to Get started")
+
+Before we begin, make sure you have an AssemblyAI account and an API key. You can [sign up](https://assemblyai.com/dashboard/signup) for a free account and get your API key from your dashboard.
+
+The complete source code for this guide can be viewed [here](https://github.com/AssemblyAI-Community/docs-snippets/tree/main/speakers).
+
+Here is an audio example for this guide:
+
+```
+https://assembly.ai/wildfires.mp3
+```
+
+## Step-by-step instructions[​](#step-by-step-instructions "Direct link to Step-by-step instructions")
+
+1. 1
+
+   Create a new file and import the necessary libraries for making an HTTP request.
+
+2. 2
+
+   Set up the API endpoint and headers. The headers should include your API key.
+
+3. 3
+
+   Upload your local file to the AssemblyAI API.
+
+4. 4
+
+   Use the `upload_url` returned by the AssemblyAI API to create a JSON payload containing the `audio_url` parameter and the `speaker_labels` paramter set to `True`.
+
+5. 5
+
+   Make a `POST` request to the AssemblyAI API endpoint with the payload and headers.
+
+6. 6
+
+   After making the request, you'll receive an ID for the transcription. Use it to poll the API every few seconds to check the status of the transcript job. Once the status is `completed`, you can retrieve the transcript from the API response, using the `utterances` key to access the results.
+
+## Understanding the response[​](#understanding-the-response "Direct link to Understanding the response")
+
+The speaker label information is included in the `utterances` key of the response. Each utterance object in the list includes a `speaker` field, which contains a string identifier for the speaker (e.g., "A", "B", etc.). The utterances list also contains a `text` field for each utterance containing the spoken text, and `confidence` scores both for utterances and their individual words.
+
+```
+```
+
+For more information, see the [Speaker Diarization model documentation](/docs/speech-to-text/speaker-diarization#specifying-the-number-of-speakers) or see the [API reference](https://assemblyai.com/docs/api-reference/transcripts).
+
+## Specifying the number of speakers[​](#specifying-the-number-of-speakers "Direct link to Specifying the number of speakers")
+
+You can provide the optional parameter `speakers_expected`, that can be used to specify the expected number of speakers in an audio file.
+
+[API/Model Reference](/docs/speech-to-text/speaker-diarization#specifying-the-number-of-speakers)
+
+## Conclusion[​](#conclusion "Direct link to Conclusion")
+
+Automatically identifying different speakers from an audio recording, also called **speaker diarization**, is a multi-step process. It can unlock additional value from many genres of recording, including conference call transcripts, broadcast media, podcasts, and more. You can learn more about use cases for speaker diarization and the underlying research from the [AssemblyAI blog](https://www.assemblyai.com/blog/speaker-diarization-speaker-labels-for-mono-channel-files).

@@ -1,0 +1,85 @@
+---
+title: "Summarization"
+description: "Distill important information by summarizing your audio files."
+---
+
+The Summarization model generates a summary of the resulting transcript. You can control the style and format of the summary using [Summary models](#summary-models) and [Summary types](#summary-types).
+
+<Warning>
+  You can only enable one of the Summarization and [Auto Chapters](/docs/audio-intelligence/auto-chapters) models in the same transcription.
+</Warning>
+
+## Quickstart[​](#quickstart "Direct link to Quickstart")
+
+Enable Summarization by setting `summarization` to `true` in the transcription config. Use `summary_model` and `summary_type` to change the summary format.
+
+If you specify one of `summary_model` and `summary_type`, then you must specify the other.
+
+The following example returns an informative summary in a bulleted list.
+
+### Example output[​](#example-output "Direct link to Example output")
+
+```
+- Smoke from hundreds of wildfires in Canada is triggering air quality alerts throughout the US. Skylines from Maine to Maryland to Minnesota are gray and smoggy. In some places, the air quality warnings include the warning to stay inside.- Air pollution levels in Baltimore are considered unhealthy. Exposure to high levels can lead to a host of health problems. With climate change, we are seeing more wildfires. Will we be seeing more of these kinds of wide ranging air quality consequences?
+```
+
+<Check>
+  If you want more control of the output format, see how to generate a [Custom summary using LeMUR](/docs/lemur/summarize-audio).
+</Check>
+
+## API reference[​](#api-reference "Direct link to API reference")
+
+### Request[​](#request "Direct link to Request")
+
+```
+curl https://api.assemblyai.com/v2/transcript \--header "Authorization: YOUR_API_KEY"  \--header "Content-Type: application/json" \--data '{  "audio_url": "YOUR_AUDIO_URL",  "summarization": true,  "summary_model": "informative",  "summary_type": "bullets"}'
+```
+
+| Key             | Type    | Description                                                    |
+| --------------- | ------- | -------------------------------------------------------------- |
+| `summarization` | boolean | Enable Summarization.                                          |
+| `summary_type`  | string  | [Summary type](#summary-types) to use for the transcription.   |
+| `summary_model` | string  | [Summary model](#summary-models) to use for the transcription. |
+
+### Response[​](#response "Direct link to Response")
+
+```
+```
+
+| Key       | Type   | Description                  |
+| --------- | ------ | ---------------------------- |
+| `summary` | string | A summary of the audio file. |
+
+The response also includes the request parameters used to generate the transcript.
+
+### Summary types[​](#summary-types "Direct link to Summary types")
+
+The summary type determines both the length and the format of the summary, for example as a bulleted list or a paragraph.
+
+| Value               | Description                                                           | Example                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bullets` (default) | A bulleted summary with the most important points.                    | - The human brain has nearly tripled in mass in two million years.- One of the main reasons that our brain got so big is because it got a new part, called the frontal lobe.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `bullets_verbose`   | A longer bullet point list summarizing the entire transcription text. | Dan Gilbert is a psychologist and a happiness expert. His talk is recorded live at Ted conference. He explains why the human brain has nearly tripled in size in 2 million years. He also explains the difference between winning the lottery and becoming a paraplegic. - In 1994, Pete Best said he's happier than he would have been with the Beatles. In the free choice paradigm, monet prints are ranked from the one they like the most to the one that they don't. People prefer the third one over the fourth one because it's a little better. - People synthesize happiness when they change their affective. Hedonic aesthetic to make up your mind and change your mind is the friend of natural happiness. But it's the enemy of synthetic happiness. The psychological immune system works best when we are stuck. This is the difference between dating and marriage. People don't know this about themselves and it can work to their disadvantage. - In a photography course at Harvard, 66% of students choose not to take the course where they have the opportunity to change their mind. Adam Smith said that some things are better than others. Dan Gilbert recorded at Ted, 2004 in Monterey, California, 2004. |
+| `gist`              | A few words summarizing the entire transcription text.                | A big brain                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `headline`          | A single sentence summarizing the entire transcription text.          | The human brain has nearly tripled in mass in two million years.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `paragraph`         | A single paragraph summarizing the entire transcription text.         | The human brain has nearly tripled in mass in two million years. It went from the one-and-a-quarter-pound brain of our ancestor, habilis, to the almost three-pound meatloaf everybody here has between their ears.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+
+### Summary models[​](#summary-models "Direct link to Summary models")
+
+The summary model determines the style and tone of the summary.
+
+| Value                   | When to use                                                                                | Supported summary type                                   | Required parameters                                                             |
+| ----------------------- | ------------------------------------------------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `informative` (default) | Best for files with a single speaker, such as presentations or lectures.                   | `bullets`, `bullets_verbose`, `headline`, or `paragraph` | `punctuate` and `format_text` set to `true`                                     |
+| `conversational`        | Best for any 2-person conversation, such as customer/agent or interview/interviewee calls. | `bullets`, `bullets_verbose`, `headline`, or `paragraph` | `punctuate`, `format_text` and `speaker_labels` or `dual_channel` set to `true` |
+| `catchy`                | Best for creating video, podcast, or media titles.                                         | `headline`, or `gist`                                    | `punctuate` and `format_text` set to `true`                                     |
+
+## Frequently asked questions[​](#frequently-asked-questions "Direct link to Frequently asked questions")
+
+How long does it take to generate a summarization output?
+
+The inference speed of the Summary model depends on the desired output length. However, a single batch can be processed in less than 1 second.
+
+Can I extract individual words and their corresponding speaker labels with Summarization?
+
+No. Summarization only generates a single abstractive summary of the entire audio file, and doesn't provide word-level information or speaker labels. If you need word-level information, consider using [Speech Recognition](/docs/speech-to-text/speech-recognition) or [Speaker Diarization](/docs/speech-to-text/speaker-diarization) instead.

@@ -1,0 +1,65 @@
+---
+title: "Transcribing an audio file"
+description: "In this guide, we'll show you how to use the API to transcribe your audio files."
+---
+
+You can also learn the content on this page from [How to Transcribe Audio Files with Python](https://www.youtube.com/watch?v=rTWM5WuPhlQ) on [AssemblyAI's YouTube channel](https://www.youtube.com/@AssemblyAI).
+
+<Check>
+  If you're using Python or TypeScript, see [Transcribe an audio file](/docs/getting-started/transcribe-an-audio-file).
+</Check>
+
+## Get started[​](#get-started "Direct link to Get started")
+
+Before we begin, make sure you have an AssemblyAI account and an API key. You can [sign up](https://assemblyai.com/dashboard/signup) for a free account and get your API key from your dashboard.
+
+The entire source code of this guide can be viewed [here](https://github.com/AssemblyAI-Community/docs-snippets/tree/main/transcribing).
+
+## Step-by-step instructions[​](#step-by-step-instructions "Direct link to Step-by-step instructions")
+
+1. 1
+
+   Create a new file and import the necessary libraries for making an HTTP request.
+
+2. 2
+
+   Set up the API endpoint and headers. The headers should include your API key.
+
+3. 3
+
+   Upload your local file to the AssemblyAI API.
+
+4. 4
+
+   Use the `upload_url` returned by the AssemblyAI API to create a JSON payload containing the `audio_url` parameter.
+
+   We delete uploaded files from our servers either after the transcription has completed, or 24 hours after you uploaded the file. After the file has been deleted, the corresponding `upload_url` is no longer valid.
+
+5. 5
+
+   Make a `POST` request to the AssemblyAI API endpoint with the payload and headers.
+
+6. 6
+
+   After making the request, you'll receive an ID for the transcription. Use it to poll the API every few seconds to check the status of the transcript job. Once the status is `completed`, you can retrieve the transcript from the API response.
+
+## Understanding the response[​](#understanding-the-response "Direct link to Understanding the response")
+
+The AssemblyAI API returns JSON-formatted output. Your transcription will be located in the `text` key. You'll also find a timestamp and a confidence score for each word inside of the `words` key, as well as other parameters assigned by the API such as `language_code` and `language_model`.
+
+```
+```
+
+Refer to the [API reference](https://assemblyai.com/docs/api-reference/transcripts/get#response) for a breakdown of every element in your transcript output.
+
+## Best practices[​](#best-practices "Direct link to Best practices")
+
+When using the AssemblyAI API to transcribe audio files, we recommended using the polling technique to check for the status of the transcription. This means making a request every few seconds to check if the transcription is complete, as described above.
+
+Alternatively, you can also set up [webhooks](/docs/getting-started/webhooks) to receive notifications when the transcription is complete. This can help reduce the overhead of polling and make your application more efficient.
+
+## Conclusion[​](#conclusion "Direct link to Conclusion")
+
+Transcription is our core API use case, and nearly all other AssemblyAI features leverage our transcription functionality. We're constantly improving and updating the [language models](https://www.assemblyai.com/blog/releasing-our-new-v9-transcription-model-11-better-accuracy/) used by our [transcription engine](https://www.assemblyai.com/blog/conformer-2/). Of course, higher quality audio generally produces better results.
+
+We'd love to hear about any new integrations or solutions that you build using our transcription API — you can find us on [Twitter](https://twitter.com/AssemblyAI) or apply to join our [Creators Program](https://www.assemblyai.com/blog/introducing-assemblyai-creators-program/). You can also try out the to experiment with our transcription features without needing to write any code! If you encounter any issues or have any questions, see [FAQ](/docs/concepts/faq) or reach out to our [Support team](https://www.assemblyai.com/contact/support).

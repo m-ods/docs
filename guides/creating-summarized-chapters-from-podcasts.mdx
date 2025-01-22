@@ -1,0 +1,64 @@
+---
+title: "Creating summarized chapters from podcasts"
+description: "The  model summarizes audio data over time into chapters. Chapters makes it easy for users to navigate and find specific information. Each chapter contains the following:"
+---
+
+* Summary
+* One-line gist
+* Headline
+* Start and end timestamps
+
+In this step-by-step guide, you'll learn how to apply the model. You'll send the `auto_chapters` parameter in your request, and then use `chapters` property from the response.
+
+You can also learn the content on this page from [Automatic Chapter Detection With AssemblyAI](https://www.youtube.com/watch?v=GvfmDGin7Zs) on [AssemblyAI's YouTube channel](https://www.youtube.com/@AssemblyAI).
+
+## Get started[​](#get-started "Direct link to Get started")
+
+Before we begin, make sure you have an AssemblyAI account and an API key. You can [sign up](https://assemblyai.com/dashboard/signup) for a free account and get your API key from your dashboard.
+
+The entire source code of this guide can be viewed [here](https://github.com/AssemblyAI-Community/docs-snippets/blob/main/chapters).
+
+Here's an audio example for this guide:
+
+```
+https://assembly.ai/wildfires.mp3
+```
+
+## Step-by-step instructions[​](#step-by-step-instructions "Direct link to Step-by-step instructions")
+
+1. 1
+
+   Create a new file and import the necessary libraries for making an HTTP request.
+
+2. 2
+
+   Set up the API endpoint and headers. The headers should include your API key.
+
+3. 3
+
+   Upload your local file to the AssemblyAI API.
+
+4. 4
+
+   Use the `upload_url` returned by the AssemblyAI API to create a JSON payload containing the `audio_url` parameter and the `auto_chapters` parameter set to `True`.
+
+5. 5
+
+   Make a `POST` request to the AssemblyAI API endpoint with the payload and headers.
+
+6. 6
+
+   After making the request, you'll receive an ID for the transcription. Use it to poll the API every few seconds to check the status of the transcript job. Once the status is `completed`, you can retrieve the transcript from the API response, using the `chapters` key to access the results.
+
+## Understanding the response[​](#understanding-the-response "Direct link to Understanding the response")
+
+Your automatic chapters are located in the `chapters` key of the API response. Each entry contains a `summary` of the chapter, a one-line `gist` and a chapter `headline`, and `start` and `end` timestamps.
+
+```
+```
+
+## Conclusion[​](#conclusion "Direct link to Conclusion")
+
+Creating text summaries using our [Auto Chapters](https://www.assemblyai.com/blog/introducing-assemblyai-auto-chapters-summarize-audio-and-video-files/) functionality works on all kinds of different input sources, not just podcasts. For example, you can use it to [summarize lecture videos](https://www.assemblyai.com/blog/python-project-lecture-summaries/) or other long-form content.
+
+If you need more fine-grained control than Auto Chapters offers, you can use AssemblyAI's [Summarization model](/docs/audio-intelligence/summarization) to customize the complexity of your summary.

@@ -1,0 +1,247 @@
+---
+title: "Speech Recognition"
+description: "The Speech Recognition model enables you to transcribe spoken words into written text and is the foundation of all AssemblyAI products."
+---
+
+On top of the core transcription, you can enable other features and models, such as [Speaker Diarization](/docs/speech-to-text/speaker-diarization), by adding additional parameters to the same transcription request.
+
+<Check>
+  Choose between [*Best* and *Nano*](#select-the-speech-model-with-best-and-nano) based on the cost and performance tradeoffs best suited for your application.
+</Check>
+
+## Quickstart[​](#quickstart "Direct link to Quickstart")
+
+The following example transcribes an audio file from a URL.
+
+### Example output[​](#example-output "Direct link to Example output")
+
+```
+Smoke from hundreds of wildfires in Canada is triggering air quality alertsthroughout the US. Skylines from Maine to Maryland to Minnesota are gray andsmoggy. And...
+```
+
+## Word-level timestamps[​](#word-level-timestamps "Direct link to Word-level timestamps")
+
+The response also includes an array with information about each word:
+
+```
+[Word(text='Smoke', start=250, end=650, confidence=0.73033), Word(text='from', start=730, end=1022, confidence=0.99996), ...]
+```
+
+## Transcript status[​](#transcript-status "Direct link to Transcript status")
+
+After you've submitted a file for transcription, your transcript has one of the following statuses:
+
+| Status       | Description                                        |
+| ------------ | -------------------------------------------------- |
+| `processing` | The audio file is being processed.                 |
+| `queued`     | The audio file is waiting to be processed.         |
+| `completed`  | The transcription has completed successfully.      |
+| `error`      | An error occurred while processing the audio file. |
+
+### Handling errors[​](#handling-errors "Direct link to Handling errors")
+
+If the transcription fails, the status of the transcript is `error`, and the transcript includes an `error` property explaining what went wrong.
+
+<Note>
+  A transcription may fail for various reasons:
+
+  * Unsupported file format
+  * Missing audio in file
+  * Unreachable audio URL
+
+  If a transcription fails due to a server error, we recommend that you resubmit the file for transcription to allow another server to process the audio.
+</Note>
+
+## Select the speech model with Best and Nano[​](#select-the-speech-model-with-best-and-nano "Direct link to Select the speech model with Best and Nano")
+
+We use a combination of models to produce your results. You can select the class of models to use in order to make cost-performance tradeoffs best suited for your application. You can visit our for more information on our model tiers.
+
+| Name               | SDK Parameter          | Description                                                                                     |
+| ------------------ | ---------------------- | ----------------------------------------------------------------------------------------------- |
+| **Best** (default) | `aai.SpeechModel.best` | Use our most accurate and capable models with the best results, recommended for most use cases. |
+| **Nano**           | `aai.SpeechModel.nano` | Use our less accurate, but much lower cost models to produce your results.                      |
+
+You can change the model by setting the `speech_model` in the transcription config:
+
+For a list of the supported languages for each model, see [Supported languages](/docs/getting-started/supported-languages).
+
+## Automatic punctuation and casing[​](#automatic-punctuation-and-casing "Direct link to Automatic punctuation and casing")
+
+By default, the API automatically punctuates the transcription text and formats proper nouns, as well as converts numbers to their numerical form.
+
+To disable punctuation and text formatting, set `punctuate` and `format_text` to `False` in the transcription config.
+
+## Automatic language detection[​](#automatic-language-detection "Direct link to Automatic language detection")
+
+Identify the dominant language spoken in an audio file and use it during the transcription. Enable it to detect any of the [supported languages](/docs/getting-started/supported-languages).
+
+To reliably identify the dominant language, the file must contain **at least 50 seconds** of spoken audio.
+
+To enable it, set `language_detection` to `True` in the transcription config.
+
+<Check>
+  By performing automatic language detection on a small chunk of audio first, you can then select between the Best or Nano model depending on the detected language. To learn more, see [Separating automatic language detection from transcription](/docs/guides/automatic-language-detection-workflow).
+</Check>
+
+### Confidence score[​](#confidence-score "Direct link to Confidence score")
+
+If language detection is enabled, the API returns a confidence score for the detected language. The score ranges from 0.0 (low confidence) to 1.0 (high confidence).
+
+### Set a language confidence threshold[​](#set-a-language-confidence-threshold "Direct link to Set a language confidence threshold")
+
+You can set the confidence threshold that must be reached if language detection is enabled. An error will be returned if the language confidence is below this threshold. Valid values are in the range \[0,1] inclusive.
+
+<Check>
+  For a workflow that resubmits a transcription request using a default language if the threshold is not reached, see [this cookbook](https://github.com/AssemblyAI/cookbook/blob/master/core-transcription/automatic-language-detection-route-default-language-python.ipynb).
+</Check>
+
+## Set language manually[​](#set-language-manually "Direct link to Set language manually")
+
+If you already know the dominant language, you can use the `language_code` key to specify the language of the speech in your audio file.
+
+To see all supported languages and their codes, see [Supported languages](/docs/getting-started/supported-languages).
+
+## Custom spelling[​](#custom-spelling "Direct link to Custom spelling")
+
+Custom Spelling lets you customize how words are spelled or formatted in the transcript.
+
+To use Custom Spelling, pass a dictionary to `set_custom_spelling()` on the transcription config. Each key-value pair specifies a mapping from a word or phrase to a new spelling or format. The key specifies the new spelling or format, and the corresponding value is the word or phrase you want to replace.
+
+<Note>
+  The value in the `to` key is case-sensitive, but the value in the `from` key isn't. Additionally, the `to` key must only contain one word, while the `from` key can contain multiple words.
+</Note>
+
+## Custom vocabulary[​](#custom-vocabulary "Direct link to Custom vocabulary")
+
+To improve the transcription accuracy, you can boost certain words or phrases that appear frequently in your audio file.
+
+To boost words or phrases, include the `word_boost` parameter in the transcription config.
+
+You can also control how much weight to apply to each keyword or phrase. Include `boost_param` in the transcription config with a value of `low`, `default`, or `high`.
+
+<Note>
+  Follow formatting guidelines for custom vocabulary to ensure the best results:
+
+  * Remove all punctuation except apostrophes.
+  * Make sure each word is in its spoken form. For example, `iphone seven` instead of `iphone 7`.
+  * Remove spaces between letters in acronyms.
+
+  Additionally, the model still accepts words with unique characters such as é, but converts them to their ASCII equivalent.
+
+  You can boost a maximum of 1,000 unique keywords and phrases, where each of them can contain up to 6 words.
+</Note>
+
+## Multichannel transcription[​](#multichannel-transcription "Direct link to Multichannel transcription")
+
+If you have a multichannel audio file with multiple speakers, you can transcribe each of them separately.
+
+To enable it, set `multichannel` to `true` in your transcription config.
+
+<Note>
+  Multichannel audio increases the transcription time by approximately 25%.
+
+  The response includes an `audio_channels` property with the number of different channels, and an additional `utterances` property, containing a list of turn-by-turn utterances.
+
+  Each utterance contains channel information, starting at 1.
+
+  Additionally, each word in the `words` array contains the channel identifier.
+</Note>
+
+## Dual-channel transcription[​](#dual-channel-transcription "Direct link to Dual-channel transcription")
+
+<Info>
+  Dual-channel is a legacy feature. Use [Multichannel](#multichannel-transcription) instead.
+</Info>
+
+## Export SRT or VTT caption files[​](#export-srt-or-vtt-caption-files "Direct link to Export SRT or VTT caption files")
+
+You can export completed transcripts in SRT or VTT format, which can be used for subtitles and closed captions in videos.
+
+You can also customize the maximum number of characters per caption by specifying the `chars_per_caption` parameter.
+
+## Export paragraphs and sentences[​](#export-paragraphs-and-sentences "Direct link to Export paragraphs and sentences")
+
+You can retrieve transcripts that are automatically segmented into paragraphs or sentences, for a more reader-friendly experience.
+
+The text of the transcript is broken down by either paragraphs or sentences, along with additional metadata.
+
+The response is an array of objects, each representing a sentence or a paragraph in the transcript. See the [API reference](#sentences-and-paragraphs) for more info.
+
+## Filler words[​](#filler-words "Direct link to Filler words")
+
+The following filler words are removed by default:
+
+* "um"
+* "uh"
+* "hmm"
+* "mhm"
+* "uh-huh"
+* "ah"
+* "huh"
+* "hm"
+* "m"
+
+If you want to keep filler words in the transcript, you can set the `disfluencies` to `true` in the transcription config.
+
+## Profanity filtering[​](#profanity-filtering "Direct link to Profanity filtering")
+
+You can automatically filter out profanity from the transcripts by setting `filter_profanity` to `true` in your transcription config.
+
+Any profanity in the returned `text` will be replaced with asterisks.
+
+<Note>
+  Profanity filter isn't perfect. Certain words may still be missed or improperly filtered.
+</Note>
+
+## Set the start and end of the transcript[​](#set-the-start-and-end-of-the-transcript "Direct link to Set the start and end of the transcript")
+
+If you only want to transcribe a portion of your file, you can set the `audio_start_from` and the `audio_end_at` parameters in your transcription config.
+
+## Speech threshold[​](#speech-threshold "Direct link to Speech threshold")
+
+To only transcribe files that contain at least a specified percentage of spoken audio, you can set the `speech_threshold` parameter. You can pass any value between 0 and 1.
+
+If the percentage of speech in the audio file is below the provided threshold, the value of `text` is `None` and the response contains an `error` message:
+
+```
+Audio speech threshold 0.9461 is below the requested speech threshold value 1.0
+```
+
+## Word search[​](#word-search "Direct link to Word search")
+
+You can search through a completed transcript for a specific set of keywords, which is useful for quickly finding relevant information.
+
+The parameter can be a list of words, numbers, or phrases up to five words.
+
+## Delete transcripts[​](#delete-transcripts "Direct link to Delete transcripts")
+
+You can remove the data from the transcript and mark it as deleted.
+
+<Note>
+  Starting on 11-26-2024, the platform will assign an account-level Time to Live (TTL) for customers who have executed a Business Associate Agreement (BAA) with AssemblyAI. For those customers, all transcripts generated via the async transcription endpoint will be deleted after the TTL period.
+
+  As of the feature launch date:
+
+  * The TTL is set to 3 days (subject to change).
+  * Customers can still manually delete transcripts before the TTL period by using the deletion endpoint. However, they cannot keep transcripts on the platform after the TTL period has expired.
+
+  BAAs are limited to customers who process PHI, subject to HIPAA. If you are processing PHI and require a BAA, please reach out to [sales@assemblyai.com](mailto:sales@assemblyai.com).
+</Note>
+
+## API reference[​](#api-reference "Direct link to API reference")
+
+You can find the API reference [here](https://www.assemblyai.com/docs/api-reference/).
+
+## Troubleshooting[​](#troubleshooting "Direct link to Troubleshooting")
+
+How can I make certain words more likely to be transcribed?
+
+You can include words, phrases, or both in the `word_boost` parameter. Any term included has its likelihood of being transcribed boosted.
+
+Can I customize how words are spelled by the model?
+
+Yes. The Custom Spelling feature gives you the ability to specify how words are spelled or formatted in the transcript text. For example, Custom Spelling could be used to change the spelling of all instances of the word "Ariana" to "Arianna". It could also be used to change the formatting of "CS 50" to "CS50".
+
+Why am I receiving a "400 Bad Request" error when making an API request?
+
+A "400 Bad Request" error typically indicates that there's a problem with the formatting or content of the API request. Double-check the syntax of your request and ensure that all required parameters are included as described in the [API reference](https://assemblyai.com/docs/api-reference/transcripts). If the issue persists, contact our support team for assistance.

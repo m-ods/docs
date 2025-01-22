@@ -1,0 +1,60 @@
+---
+title: "Change model and parameters"
+description: "Learn how you can customize LeMUR parameters to alter the outcome."
+---
+
+## Change the model type[​](#change-the-model-type "Direct link to Change the model type")
+
+LeMUR features the following LLMs:
+
+* Claude 3.5 Sonnet
+* Claude 3 Opus
+* Claude 3 Haiku
+* Claude 3 Sonnet
+* Claude 2.1 (*Legacy - sunsetting on 02/06/25*)
+* Claude 2 (*Legacy - sunsetting on 02/06/25*)
+
+You can switch the model by specifying the `final_model` parameter.
+
+| Model                                           | SDK Parameter                     | Description                                                                                                                                                                                                                                         |
+| ----------------------------------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Claude 3.5 Sonnet**                           | `aai.LemurModel.claude3_5_sonnet` | Claude 3.5 Sonnet is the most intelligent model to date, outperforming Claude 3 Opus on a wide range of evaluations, with the speed and cost of Claude 3 Sonnet. This uses Anthropic's Claude 3.5 Sonnet model version`claude-3-5-sonnet-20240620`. |
+| **Claude 3.0 Opus**                             | `aai.LemurModel.claude3_opus`     | Claude 3 Opus is good at handling complex analysis, longer tasks with many steps, and higher-order math and coding tasks.                                                                                                                           |
+| **Claude 3.0 Haiku**                            | `aai.LemurModel.claude3_haiku`    | Claude 3 Haiku is the fastest model that can execute lightweight actions.                                                                                                                                                                           |
+| **Claude 3.0 Sonnet**                           | `aai.LemurModel.claude3_sonnet`   | Claude 3 Sonnet is a legacy model with a balanced combination of performance and speed for efficient, high-throughput tasks.                                                                                                                        |
+| **Claude 2.1**(Legacy - sunsetting on 02/06/25) | `aai.LemurModel.claude2_1`        | Claude 2.1 is a legacy model similar to Claude 2. The key difference is that it minimizes model hallucination and system prompts, has a larger context window, and performs better in citations.                                                    |
+| **Claude 2**(Legacy - sunsetting on 02/06/25)   | `aai.LemurModel.claude2_0`        | Claude 2 is a legacy model that has good complex reasoning. It offers more nuanced responses and improved contextual comprehension.                                                                                                                 |
+
+You can find more information on pricing for each model .
+
+## Change the maximum output size[​](#change-the-maximum-output-size "Direct link to Change the maximum output size")
+
+You can change the maximum output size in tokens by specifying the `max_output_size` parameter. Up to 4000 tokens are allowed.
+
+## Change the temperature[​](#change-the-temperature "Direct link to Change the temperature")
+
+You can change the temperature by specifying the `temperature` parameter, ranging from 0.0 to 1.0.
+
+Higher values result in answers that are more creative, lower values are more conservative.
+
+## Send customized input[​](#send-customized-input "Direct link to Send customized input")
+
+You can submit custom text inputs to LeMUR without transcript IDs. This allows you to customize the input, for example, you could include the speaker labels for the LLM.
+
+To submit custom text input, use the `input_text` parameter on `aai.Lemur().task()`.
+
+## Submit multiple transcripts[​](#submit-multiple-transcripts "Direct link to Submit multiple transcripts")
+
+LeMUR can easily ingest multiple transcripts in a single API call.
+
+You can feed in up to a maximum of 100 files or 100 hours, whichever is lower.
+
+## Delete data[​](#delete-data "Direct link to Delete data")
+
+You can delete the data for a previously submitted LeMUR request.
+
+Response data from the LLM, as well as any context provided in the original request will be removed.
+
+## API reference[​](#api-reference "Direct link to API reference")
+
+You can find detailed information about all LeMUR API endpoints and parameters in the [LeMUR API reference](https://assemblyai.com/docs/api-reference/lemur).

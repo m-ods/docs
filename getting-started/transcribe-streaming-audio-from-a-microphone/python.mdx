@@ -1,0 +1,162 @@
+---
+title: "Transcribe streaming audio from a microphone in Python"
+description: "Learn how to transcribe streaming audio in Python."
+---
+
+## Overview[​](#overview "Direct link to Overview")
+
+By the end of this tutorial, you'll be able to transcribe audio from your microphone in Python.
+
+<Note>
+  Streaming Speech-to-Text is only available for English. See [Supported languages](/docs/getting-started/supported-languages).
+</Note>
+
+## Before you begin[​](#before-you-begin "Direct link to Before you begin")
+
+To complete this tutorial, you need:
+
+* [Python](https://www.python.org/) installed.
+* An with a credit card set up.
+
+Here's the full sample code of what you'll build in this tutorial:
+
+```
+import assemblyai as aaiaai.settings.api_key = "YOUR_API_KEY" def on_open(session_opened: aai.RealtimeSessionOpened):    print("Session ID:", session_opened.session_id)def on_data(transcript: aai.RealtimeTranscript):    if not transcript.text:        return    if isinstance(transcript, aai.RealtimeFinalTranscript):        print(transcript.text, end="\r\n")    else:        print(transcript.text, end="\r")def on_error(error: aai.RealtimeError):    print("An error occured:", error)def on_close():    print("Closing Session")transcriber = aai.RealtimeTranscriber(    sample_rate=16_000,    on_data=on_data,    on_error=on_error,    on_open=on_open,    on_close=on_close,)transcriber.connect()microphone_stream = aai.extras.MicrophoneStream(sample_rate=16_000)transcriber.stream(microphone_stream)transcriber.close()
+```
+
+## Step 1: Install dependencies[​](#step-1-install-dependencies "Direct link to Step 1: Install dependencies")
+
+1. 1
+
+   PortAudio is a cross-platform library for streaming audio. The Python SDK uses PortAudio to stream audio from your microphone.
+
+2. 2
+
+   Install the package via pip. `extras` enable additional features, such as streaming audio from a microphone.
+
+   ```
+   pip install "assemblyai[extras]"
+   ```
+
+## Step 2: Configure the API key[​](#step-2-configure-the-api-key "Direct link to Step 2: Configure the API key")
+
+In this step, you 'll create an SDK client and configure it to use your API key.
+
+1. 1
+
+   Browse to , and then click **Copy API key** under **Copy your API key**.
+
+2. 2
+
+   Configure the SDK to use your API key. Replace `YOUR_API_KEY` with your copied API key.
+
+   ```
+   import assemblyai as aaiaai.settings.api_key = "YOUR_API_KEY" 
+   ```
+
+## Step 3: Create a transcriber[​](#step-3-create-a-transcriber "Direct link to Step 3: Create a transcriber")
+
+In this step, you'll set up a real-time transcriber object and callback functions that handle the different events.
+
+1. 1
+
+   Create functions to handle events from the real-time transcriber.
+
+   ```
+   def on_open(session_opened: aai.RealtimeSessionOpened):    print("Session opened with ID:", session_opened.session_id)def on_error(error: aai.RealtimeError):    print("Error:", error)def on_close():    print("Session closed")
+   ```
+
+2. 2
+
+   Create another function to handle transcripts. The real-time transcriber returns two types of transcripts: *RealtimeFinalTranscript and RealtimePartialTranscript*.
+
+   * *Partial transcripts* are returned as the audio is being streamed to AssemblyAI.
+   * *Final transcripts* are returned after a moment of silence.
+
+   <Check>
+     You can [configure the silence threshold](/docs/speech-to-text/streaming#configure-the-threshold-for-automatic-utterance-detection) for automatic utterance detection and programmatically [force the end of an utterance](/docs/speech-to-text/streaming#manually-end-current-utterance) to immediately get a *Final transcript*.
+   </Check>
+
+   ```
+   def on_data(transcript: aai.RealtimeTranscript):    if not transcript.text:        return    if isinstance(transcript, aai.RealtimeFinalTranscript):        # Add new line after final transcript.        print(transcript.text, end="\r\n")    else:        print(transcript.text, end="\r")
+   ```
+
+3. 3
+
+   Create a new `RealtimeTranscriber` using the function you created.
+
+   ```
+   transcriber = aai.RealtimeTranscriber(    sample_rate=16_000,    on_data=on_data,    on_error=on_error,    on_open=on_open,    on_close=on_close,)
+   ```
+
+   <Note>
+     The `sample_rate` is the number of audio samples per second, measured in hertz (Hz). Higher sample rates result in higher quality audio, which may lead to better transcripts, but also more data being sent over the network.
+
+     We recommend the following sample rates:
+
+     * Minimum quality: `8_000` (8 kHz)
+     * Medium quality: `16_000` (16 kHz)
+     * Maximum quality: `48_000` (48 kHz)
+   </Note>
+
+## Step 4: Connect the transcriber[​](#step-4-connect-the-transcriber "Direct link to Step 4: Connect the transcriber")
+
+Streaming Speech-to-Text uses [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) to stream audio to AssemblyAI. This requires first establishing a connection to the API.
+
+```
+transcriber.connect()
+```
+
+The `on_open` function you created earlier will be called when the connection has been established.
+
+## Step 5: Record audio from microphone[​](#step-5-record-audio-from-microphone "Direct link to Step 5: Record audio from microphone")
+
+In this step, you'll configure your Python app to record audio from your microphone. You'll use a helper class from the Python SDK that make this easier.
+
+1. 1
+
+   Open a microphone stream. The `sample_rate` needs to be the same value as the one you passed to `RealtimeTranscriber`.
+
+   ```
+   microphone_stream = aai.extras.MicrophoneStream(sample_rate=16_000)
+   ```
+
+   <Note>
+     `MicrophoneStream` formats the audio data for you. If you want to stream data from elsewhere, make sure that your audio data is in the following format:
+
+     * Single channel
+     * 16-bit signed integer PCM or mu-law encoding
+
+     By default, transcriptions expect PCM16-encoded audio. If you want to use mu-law encoding, see [Specifying the encoding](/docs/guides/real-time-streaming-transcription#specifying-the-encoding).
+   </Note>
+
+2. 2
+
+   Start sending data from the microphone stream. The `on_data` function you created earlier will be called when the transcript is sent back.
+
+   Press `Ctrl+C` to stop recording.
+
+   ```
+   transcriber.stream(microphone_stream)
+   ```
+
+## Step 6: Close the connection[​](#step-6-close-the-connection "Direct link to Step 6: Close the connection")
+
+Finally, close the connection when you're done to disconnect the transcriber.
+
+```
+transcriber.close()
+```
+
+The `on_close` function you created earlier will be called when the connection has been closed.
+
+## Next steps[​](#next-steps "Direct link to Next steps")
+
+To learn more about Streaming Speech-to-Text, see the following resources:
+
+* [Streaming Speech-to-Text](/docs/speech-to-text/streaming)
+* [WebSocket API reference](https://assemblyai.com/docs/api-reference/streaming)
+
+## Need some help?[​](#need-some-help "Direct link to Need some help?")
+
+If you get stuck, or have any other questions, we'd love to help you out. Ask our support team in our [Discord server](https://discord.gg/aSMMpMadFh).
