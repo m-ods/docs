@@ -15,7 +15,7 @@ Smoke from hundreds of wildfires in Canada is triggering air quality alerts thro
 
 ## Add speaker labels to sentiments[​](#add-speaker-labels-to-sentiments "Direct link to Add speaker labels to sentiments")
 
-To add speaker labels to each sentiment analysis result, using [Speaker Diarization](/docs/speech-to-text/speaker-diarization), enable `speaker_labels` in the transcription config.
+To add speaker labels to each sentiment analysis result, using [Speaker Diarization](/speech-to-text/speaker-diarization), enable `speaker_labels` in the transcription config.
 
 Each sentiment result will then have a `speaker` field that contains the speaker label.
 
@@ -44,7 +44,7 @@ curl https://api.assemblyai.com/v2/transcript \--header "Authorization: YOUR_API
 | `sentiment_analysis_results[i].end`        | number         | The ending time, in milliseconds, of the i-th sentence.                                                                    |
 | `sentiment_analysis_results[i].sentiment`  | string         | The detected sentiment for the i-th sentence, one of `POSITIVE`, `NEUTRAL`, `NEGATIVE`.                                    |
 | `sentiment_analysis_results[i].confidence` | number         | The confidence score for the detected sentiment of the i-th sentence, from 0 to 1.                                         |
-| `sentiment_analysis_results[i].speaker`    | string or null | The speaker of the i-th sentence if [Speaker Diarization](/docs/speech-to-text/speaker-diarization) is enabled, else null. |
+| `sentiment_analysis_results[i].speaker`    | string or null | The speaker of the i-th sentence if [Speaker Diarization](/speech-to-text/speaker-diarization) is enabled, else null. |
 
 ## Frequently asked questions[​](#frequently-asked-questions "Direct link to Frequently asked questions")
 
@@ -54,7 +54,7 @@ The Sentiment Analysis model is based on the interpretation of the transcript an
 
 What if the transcript contains sensitive or offensive content?
 
-The [Content Moderation model](/docs/audio-intelligence/content-moderation) can be used to identify and filter out sensitive or offensive content from the transcript.
+The [Content Moderation model](/audio-intelligence/content-moderation) can be used to identify and filter out sensitive or offensive content from the transcript.
 
 What if the sentiment analysis results aren't consistent with my expectations?
 

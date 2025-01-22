@@ -31,7 +31,7 @@ The entire source code of this guide can be viewed [here](https://github.com/Ass
 
    To use the Summarization model, set `summarization` to `True`. By default, the `summary_model` model is `informative` and the `summary_type` is `bullets`.
 
-   You can find all possible [summary models and types here](/docs/audio-intelligence/summarization#types-and-models). Note that if the `summary_model` is specified, `summary_type` is also a required parameter, and vice versa.
+   You can find all possible [summary models and types here](/audio-intelligence/summarization#types-and-models). Note that if the `summary_model` is specified, `summary_type` is also a required parameter, and vice versa.
 
 5. 5
 
@@ -70,10 +70,10 @@ Experiment with different summarization options to find the one that works best 
 |                                                                                                               | `headline`: A single sentence summarizing the entire transcription text.                 |
 |                                                                                                               | `paragraph`: A single paragraph summarizing the entire transcription text.               |
 
-[Learn more](/docs/audio-intelligence/summarization)
+[Learn more](/audio-intelligence/summarization)
 
 ## Conclusion[​](#conclusion "Direct link to Conclusion")
 
 AssemblyAI maintains a number of different [summarization models](https://www.assemblyai.com/blog/new-ai-models-to-summarize-audio-and-video-for-any-use-case/) for different use cases, so you can choose between a more informative summary or a catchier tagline for your audio. Visit the [AssemblyAI blog](https://www.assemblyai.com/blog/automatically-summarize-audio-and-video-files-at-scale-with-ai/) for more examples of our summarization features in action.
 
-If you're experiencing issues with generating a summary, make sure that you've included the `summarization` parameter in your request and set it to `true`. In addition, note that the [Auto Chapters](/docs/audio-intelligence/auto-chapters) model and the Summarization model can't be active in the same request. If you try to enable both Auto Chapters and Summarization in a single request, you'll receive the following error message: `"Only one of the following models can be enabled at a time: auto_chapters, summarization."`
+If you're experiencing issues with generating a summary, make sure that you've included the `summarization` parameter in your request and set it to `true`. In addition, note that the [Auto Chapters](/audio-intelligence/auto-chapters) model and the Summarization model can't be active in the same request. If you try to enable both Auto Chapters and Summarization in a single request, you'll receive the following error message: `"Only one of the following models can be enabled at a time: auto_chapters, summarization."`

@@ -8,7 +8,7 @@ description: "Learn how to transcribe streaming audio in TypeScript."
 By the end of this tutorial, you'll be able to transcribe audio from your microphone in TypeScript.
 
 <Note>
-  Streaming Speech-to-Text is only available for English. See [Supported languages](/docs/getting-started/supported-languages).
+  Streaming Speech-to-Text is only available for English. See [Supported languages](/getting-started/supported-languages).
 </Note>
 
 ## Before you begin[​](#before-you-begin "Direct link to Before you begin")
@@ -85,7 +85,7 @@ In this step, you'll create an SDK client and configure it to use your API key.
    * *Final transcripts* are returned when the service detects a pause in speech.
 
    <Check>
-     You can [configure the silence threshold](/docs/speech-to-text/streaming#configure-the-threshold-for-automatic-utterance-detection) for automatic utterance detection and programmatically [force the end of an utterance](/docs/speech-to-text/streaming#manually-end-current-utterance) to immediately get a *Final transcript*.
+     You can [configure the silence threshold](/speech-to-text/streaming#configure-the-threshold-for-automatic-utterance-detection) for automatic utterance detection and programmatically [force the end of an utterance](/speech-to-text/streaming#manually-end-current-utterance) to immediately get a *Final transcript*.
    </Check>
 
    ```
@@ -136,7 +136,7 @@ In this step, you'll use [SoX](http://sox.sourceforge.net/), a cross-platform au
      * Single channel
      * 16-bit signed integer PCM or mu-law encoding
 
-     By default, the Streaming STT service expects PCM16-encoded audio. If you want to use mu-law encoding, see [Specifying the encoding](/docs/guides/real-time-streaming-transcription#specifying-the-encoding).
+     By default, the Streaming STT service expects PCM16-encoded audio. If you want to use mu-law encoding, see [Specifying the encoding](/guides/real-time-streaming-transcription#specifying-the-encoding).
    </Note>
 
 4. 4
@@ -165,7 +165,7 @@ To run the program, use `tsc main.ts` to compile the JavaScript file, and then r
 
 To learn more about Streaming Speech-to-Text, see the following resources:
 
-* [Streaming Speech-to-Text](/docs/speech-to-text/streaming)
+* [Streaming Speech-to-Text](/speech-to-text/streaming)
 * [Streaming STT WebSocket API reference](https://assemblyai.com/docs/api-reference/streaming)
 
 ## Need some help?[​](#need-some-help "Direct link to Need some help?")

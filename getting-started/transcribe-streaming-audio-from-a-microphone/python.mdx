@@ -8,7 +8,7 @@ description: "Learn how to transcribe streaming audio in Python."
 By the end of this tutorial, you'll be able to transcribe audio from your microphone in Python.
 
 <Note>
-  Streaming Speech-to-Text is only available for English. See [Supported languages](/docs/getting-started/supported-languages).
+  Streaming Speech-to-Text is only available for English. See [Supported languages](/getting-started/supported-languages).
 </Note>
 
 ## Before you begin[​](#before-you-begin "Direct link to Before you begin")
@@ -85,7 +85,7 @@ In this step, you'll set up a real-time transcriber object and callback function
    ```
 
 2. 2Create another function to handle transcripts. The real-time transcriber returns two types of transcripts: *RealtimeFinalTranscript and RealtimePartialTranscript*.<Check>
-   You can [configure the silence threshold](/docs/speech-to-text/streaming#configure-the-threshold-for-automatic-utterance-detection) for automatic utterance detection and programmatically [force the end of an utterance](/docs/speech-to-text/streaming#manually-end-current-utterance) to immediately get a *Final transcript*.
+   You can [configure the silence threshold](/speech-to-text/streaming#configure-the-threshold-for-automatic-utterance-detection) for automatic utterance detection and programmatically [force the end of an utterance](/speech-to-text/streaming#manually-end-current-utterance) to immediately get a *Final transcript*.
    </Check>\`\`\`
    def on\_data(transcript: aai.RealtimeTranscript):    if not transcript.text:        return    if isinstance(transcript, aai.RealtimeFinalTranscript):        # Add new line after final transcript.        print(transcript.text, end="\r\n")    else:        print(transcript.text, end="\r")```
 
@@ -134,7 +134,7 @@ In this step, you'll configure your Python app to record audio from your microph
 
      * 16-bit signed integer PCM or mu-law encoding
 
-     By default, transcriptions expect PCM16-encoded audio. If you want to use mu-law encoding, see [Specifying the encoding](/docs/guides/real-time-streaming-transcription#specifying-the-encoding).
+     By default, transcriptions expect PCM16-encoded audio. If you want to use mu-law encoding, see [Specifying the encoding](/guides/real-time-streaming-transcription#specifying-the-encoding).
    </Note>
 
    ```
@@ -157,7 +157,7 @@ The `on_close` function you created earlier will be called when the connection h
 
 To learn more about Streaming Speech-to-Text, see the following resources:
 
-* [Streaming Speech-to-Text](/docs/speech-to-text/streaming)
+* [Streaming Speech-to-Text](/speech-to-text/streaming)
 
 * [WebSocket API reference](https://assemblyai.com/docs/api-reference/streaming)
 

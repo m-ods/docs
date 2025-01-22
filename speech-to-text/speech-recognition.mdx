@@ -3,7 +3,7 @@ title: "Speech Recognition"
 description: "The Speech Recognition model enables you to transcribe spoken words into written text and is the foundation of all AssemblyAI products."
 ---
 
-On top of the core transcription, you can enable other features and models, such as [Speaker Diarization](/docs/speech-to-text/speaker-diarization), by adding additional parameters to the same transcription request.
+On top of the core transcription, you can enable other features and models, such as [Speaker Diarization](/speech-to-text/speaker-diarization), by adding additional parameters to the same transcription request.
 
 <Check>
   Choose between [*Best* and *Nano*](#select-the-speech-model-with-best-and-nano) based on the cost and performance tradeoffs best suited for your application.
@@ -63,7 +63,7 @@ We use a combination of models to produce your results. You can select the class
 
 You can change the model by setting the `speech_model` in the transcription config:
 
-For a list of the supported languages for each model, see [Supported languages](/docs/getting-started/supported-languages).
+For a list of the supported languages for each model, see [Supported languages](/getting-started/supported-languages).
 
 ## Automatic punctuation and casing[​](#automatic-punctuation-and-casing "Direct link to Automatic punctuation and casing")
 
@@ -73,14 +73,14 @@ To disable punctuation and text formatting, set `punctuate` and `format_text` to
 
 ## Automatic language detection[​](#automatic-language-detection "Direct link to Automatic language detection")
 
-Identify the dominant language spoken in an audio file and use it during the transcription. Enable it to detect any of the [supported languages](/docs/getting-started/supported-languages).
+Identify the dominant language spoken in an audio file and use it during the transcription. Enable it to detect any of the [supported languages](/getting-started/supported-languages).
 
 To reliably identify the dominant language, the file must contain **at least 50 seconds** of spoken audio.
 
 To enable it, set `language_detection` to `True` in the transcription config.
 
 <Check>
-  By performing automatic language detection on a small chunk of audio first, you can then select between the Best or Nano model depending on the detected language. To learn more, see [Separating automatic language detection from transcription](/docs/guides/automatic-language-detection-workflow).
+  By performing automatic language detection on a small chunk of audio first, you can then select between the Best or Nano model depending on the detected language. To learn more, see [Separating automatic language detection from transcription](/guides/automatic-language-detection-workflow).
 </Check>
 
 ### Confidence score[​](#confidence-score "Direct link to Confidence score")
@@ -99,7 +99,7 @@ You can set the confidence threshold that must be reached if language detection 
 
 If you already know the dominant language, you can use the `language_code` key to specify the language of the speech in your audio file.
 
-To see all supported languages and their codes, see [Supported languages](/docs/getting-started/supported-languages).
+To see all supported languages and their codes, see [Supported languages](/getting-started/supported-languages).
 
 ## Custom spelling[​](#custom-spelling "Direct link to Custom spelling")
 
