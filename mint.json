@@ -1,34 +1,41 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "AssemblyAI Docs",
-  "colors": {
-    "primary": "#0D9373",
-    "light": "#55D799",
-    "dark": "#0D9373"
+  "name": "AssemblyAI",
+  "theme": "venus",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg",
+    "href": "https://assemblyai.com"
   },
-  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#CC9200",
+    "light": "#FFD700",
+    "dark": "#09060f",
+    "background": {
+      "dark": "#09060f"
+    },
+    "anchors": {
+      "from": "#CC9200",
+      "to": "#FFD700"
+    }
+  },
+  "font": {
+    "headings": {
+      "family": "Inter",
+      "weight": 600
+    },
+    "body": {
+      "family": "Inter",
+      "weight": 400
+    }
+  },
+  "favicon": "/favicon.png",
   "navigation": [
     {
-      "group": "Overview",
-      "pages": [
-        "/"
-      ]
-    },
-    {
-      "group": "Getting started",
+      "group": "Getting Started",
       "pages": [
         "getting-started/transcribe-an-audio-file",
-        {
-          "group": "Transcribe streaming audio from a microphone",
-          "pages": [
-            "getting-started/transcribe-streaming-audio-from-a-microphone",
-            "getting-started/transcribe-streaming-audio-from-a-microphone/python",
-            "getting-started/transcribe-streaming-audio-from-a-microphone/typescript",
-            "getting-started/transcribe-streaming-audio-from-a-microphone/go",
-            "getting-started/transcribe-streaming-audio-from-a-microphone/csharp",
-            "getting-started/transcribe-streaming-audio-from-a-microphone/java"
-          ]
-        },
+        "getting-started/transcribe-streaming-audio-from-a-microphone",
         "getting-started/apply-llms-to-audio-files",
         "getting-started/webhooks",
         "getting-started/supported-languages",
@@ -36,26 +43,14 @@
       ]
     },
     {
-      "group": "Cookbooks",
+      "group": "Guides",
       "pages": [
-        "guides/transcribing-an-audio-file",
-        "guides/generating-subtitles-for-videos",
-        "guides/real-time-streaming-transcription",
-        "guides/summarizing-virtual-meetings",
-        "guides/identifying-hate-speech-in-audio-or-video-files",
-        "guides/identifying-highlights-in-audio-or-video-files",
-        "guides/identifying-speakers-in-audio-recordings",
-        "guides/creating-summarized-chapters-from-podcasts",
-        "guides/automatic-language-detection-workflow",
-        "guides/generate-meeting-action-items-with-lemur",
-        "guides/process-speaker-labels-with-lemur",
-        "guides"
+        "guides/index"
       ]
     },
     {
       "group": "Speech-to-Text",
       "pages": [
-        "speech-to-text",
         "speech-to-text/speech-recognition",
         "speech-to-text/speaker-diarization",
         "speech-to-text/streaming"
@@ -64,79 +59,41 @@
     {
       "group": "LeMUR - LLMs for speech",
       "pages": [
-        "lemur",
         "lemur/summarize-audio",
         "lemur/ask-questions",
-        "lemur/examples",
-        "lemur/customize-parameters",
-        "lemur/improving-your-prompt"
+        "lemur/improving-your-prompt",
+        "lemur/customize-parameters"
       ]
     },
     {
       "group": "Audio Intelligence",
       "pages": [
-        "audio-intelligence",
-        "audio-intelligence/summarization",
-        "audio-intelligence/content-moderation",
-        "audio-intelligence/sentiment-analysis",
-        "audio-intelligence/entity-detection",
-        "audio-intelligence/topic-detection",
-        "audio-intelligence/auto-chapters",
-        "audio-intelligence/key-phrases",
-        "audio-intelligence/pii-redaction"
+        "audio-intelligence/index"
       ]
     },
     {
       "group": "Integrations",
       "pages": [
-        "integrations",
-        {
-          "group": "LangChain",
-          "pages": [
-            "integrations/langchain",
-            "integrations/langchain/python",
-            "integrations/langchain/js"
-          ]
-        },
-        {
-          "group": "LlamaIndex",
-          "pages": [
-            "integrations/llamaindex",
-            "integrations/llamaindex/python",
-            "integrations/llamaindex/ts"
-          ]
-        },
-        "integrations/semantic-kernel",
-        "integrations/activepieces",
-        "integrations/make",
-        "integrations/postman",
-        "integrations/power-automate",
-        "integrations/zapier",
-        "integrations/rivet",
-        "integrations/haystack",
-        "integrations/twilio",
-        "integrations/no-code",
-        "external-link-1",
-        "external-link-2",
-        {
-          "group": "Community",
-          "pages": [
-            "integrations/community",
-            "external-link-3",
-            "external-link-4",
-            "external-link-5",
-            "external-link-6"
-          ]
-        }
+        "integrations/index"
       ]
     },
     {
       "group": "Concepts",
       "pages": [
-        "concepts",
         "concepts/cli",
         "concepts/faq"
       ]
+    }
+  ],
+  "tabs": [
+    {
+      "name": "Documentation",
+      "url": "docs"
+    },
+    {
+      "name": "API Reference",
+      "url": "api-reference",
+      "openapi": "https://raw.githubusercontent.com/AssemblyAI/assemblyai-api-spec/refs/heads/main/openapi.json"
     }
   ]
 }

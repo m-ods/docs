@@ -96,7 +96,9 @@ In this step, you'll set up a real-time transcriber object and callback function
    ```
 
 3. 3Create a new `RealtimeTranscriber` using the function you created.\`\`\`
-   transcriber = aai.RealtimeTranscriber(    sample\_rate=16\_000,    on\_data=on\_data,    on\_error=on\_error,    on\_open=on\_open,    on\_close=on\_close,)```\<Note>
+   transcriber = aai.RealtimeTranscriber(    sample\_rate=16\_000,    on\_data=on\_data,    on\_error=on\_error,    on\_open=on\_open,    on\_close=on\_close,)```\
+   
+   <Note>
      The `sample_rate` is the number of audio samples per second, measured in hertz (Hz). Higher sample rates result in higher quality audio, which may lead to better transcripts, but also more data being sent over the network.
 
      We recommend the following sample rates:
@@ -124,7 +126,8 @@ The `on_open` function you created earlier will be called when the connection ha
 In this step, you'll configure your Python app to record audio from your microphone. You'll use a helper class from the Python SDK that make this easier.
 
 1. 1Open a microphone stream. The `sample_rate` needs to be the same value as the one you passed to `RealtimeTranscriber`.\`\`\`
-   microphone\_stream = aai.extras.MicrophoneStream(sample\_rate=16\_000)```\<Note>
+   microphone\_stream = aai.extras.MicrophoneStream(sample\_rate=16\_000)```\
+   <Note>
      `MicrophoneStream` formats the audio data for you. If you want to stream data from elsewhere, make sure that your audio data is in the following format:
 
      * Single channel
