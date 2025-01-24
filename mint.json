@@ -1,57 +1,147 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "AssemblyAI",
-  "theme": "venus",
+  "name": "AssemblyAI Docs",
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg",
-    "href": "https://assemblyai.com"
+    "dark": "/logo/logo_white.svg",
+    "light": "/logo/logo_black.svg"
   },
+  "favicon": "/favicon.png",
   "colors": {
-    "primary": "#CC9200",
-    "light": "#FFD700",
-    "dark": "#09060f",
-    "background": {
-      "dark": "#09060f"
-    },
+    "primary": "#2545d3",
+    "light": "#2545d3",
+    "dark": "#2545d3",
     "anchors": {
-      "from": "#CC9200",
-      "to": "#FFD700"
+      "from": "#2545d3",
+      "to": "#2545d3"
     }
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "https://assemblyai.com/contact/support"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Get Started",
+    "url": "https://www.assemblyai.com/dashboard/signup"
   },
   "font": {
     "headings": {
-      "family": "Inter",
-      "weight": 600
+      "family": "Monument Grotesk",
+      "url": "https://mintlify-assets.b-cdn.net/fonts/ABCMonumentGrotesk-Bold.woff2",
+      "format": "woff2"
     },
     "body": {
-      "family": "Inter",
-      "weight": 400
+      "family": "Monument Grotesk Regular",
+      "url": "https://mintlify-assets.b-cdn.net/fonts/ABCMonumentGrotesk-Regular.woff2",
+      "format": "woff2"
     }
   },
-  "favicon": "/favicon.png",
+  "codeBlock": {
+    "mode": "auto"
+  },
+  "primaryTab": {
+    "name": "Home"
+  },
+  "tabs": [
+    {
+      "name": "Documentation",
+      "url": "getting-started"
+    },
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    },
+    {
+      "name":"Cookbooks",
+      "url":"cookbooks"
+    },
+    {
+      "name": "Integrations",
+      "url": "integrations"
+    },
+    {
+      "name": "Concepts",
+      "url": "concepts"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Blog",
+      "icon": "newspaper",
+      "url": "https://www.assemblyai.com/blog"
+    },
+    {
+      "name": "Playground",
+      "icon": "puzzle",
+      "url": "https://www.assemblyai.com/playground"
+    }
+  ],
   "navigation": [
+    {
+      "group": "Home",
+      "pages": [
+        "home"
+      ]
+    },
+    {
+      "group": "Introduction",
+      "pages": [
+        "getting-started/welcome"
+      ]
+    },
     {
       "group": "Getting Started",
       "pages": [
         "getting-started/transcribe-an-audio-file",
-        "getting-started/transcribe-streaming-audio-from-a-microphone",
-        "getting-started/apply-llms-to-audio-files",
         "getting-started/webhooks",
         "getting-started/supported-languages",
         "getting-started/usage-limits"
       ]
     },
     {
-      "group": "Guides",
+      "group": "Cookbooks",
       "pages": [
-        "guides/index"
+        "cookbooks/overview",
+        {
+          "group": "Guides",
+          "pages": [
+            {
+              "group": "Streaming SST",
+              "icon": "cloud",
+              "pages": [
+                "cookbooks/streaming-sst/overview",
+                {
+                  "group": "API Guides",
+                  "pages": [
+                    "cookbooks/streaming-sst/separating-automatic-language-detection-from-transcription"
+                  ]
+                }
+              ]
+            },
+            {
+              "group": "LeMUR",
+              "icon": "cat",
+              "pages": [
+                "cookbooks/lemur/overview",
+                "cookbooks/lemur/process-speaker-labels-with-lemur",
+                "cookbooks/lemur/automatically-generate-action-items-from-a-meeting-with-lemur"
+              ]
+            }
+          ]
+        }
       ]
     },
     {
-      "group": "Speech-to-Text",
+      "group": "Field Guides",
       "pages": [
-        "speech-to-text/speech-recognition",
+        "api-reference-ssa/field-guides/overview",
+        "api-reference-ssa/field-guides/page1"
+      ]
+    },
+    {
+      "group": "Speech To Text",
+      "pages": [
         "speech-to-text/speaker-diarization",
         "speech-to-text/streaming"
       ]
@@ -59,22 +149,60 @@
     {
       "group": "LeMUR - LLMs for speech",
       "pages": [
-        "lemur/summarize-audio",
-        "lemur/ask-questions",
-        "lemur/improving-your-prompt",
-        "lemur/customize-parameters"
+        "lemur-llm-for-speech/summarize-your-audio-data",
+        "lemur-llm-for-speech/create-custom-llm-prompts"
       ]
     },
     {
       "group": "Audio Intelligence",
       "pages": [
-        "audio-intelligence/index"
+        "audio-intelligence/summarization",
+        "audio-intelligence/sentiment-analysis"
       ]
     },
     {
-      "group": "Integrations",
+      "group": "Changelog",
       "pages": [
-        "integrations/index"
+        "changelog/changelog"
+      ]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        "api-reference/api-reference",
+        {
+          "group": "Transcripts",
+          "pages": [
+            "api-reference/transcript/upload-a-media-file",
+            "api-reference/transcript/list-transcripts",
+            "api-reference/transcript/transcribe-audio",
+            "api-reference/transcript/get-transcript",
+            "api-reference/transcript/delete-transcript",
+            "api-reference/transcript/get-subtitles-for-transcript",
+            "api-reference/transcript/get-sentences-in-transcript",
+            "api-reference/transcript/get-paragraphs-in-transcript",
+            "api-reference/transcript/search-words-in-transcript",
+            "api-reference/transcript/get-redacted-audio"
+          ]
+        },
+        {
+          "group": "LeMUR",
+          "pages": [
+            "api-reference/lemur/run-a-task-using-lemur",
+            "api-reference/lemur/summarize-a-transcript-using-lemur",
+            "api-reference/lemur/ask-questions-using-lemur",
+            "api-reference/lemur/extract-action-items",
+            "api-reference/lemur/retrieve-lemur-response",
+            "api-reference/lemur/purge-lemur-request-data"
+          ]
+        },
+        {
+          "group": "Streaming",
+          "pages": [
+            "api-reference/streaming/overview",
+            "api-reference/streaming/create-temporary-authentication-token-for-streaming-stt"
+          ]
+        }
       ]
     },
     {
@@ -83,17 +211,24 @@
         "concepts/cli",
         "concepts/faq"
       ]
-    }
-  ],
-  "tabs": [
-    {
-      "name": "Documentation",
-      "url": "docs"
     },
     {
-      "name": "API Reference",
-      "url": "api-reference",
-      "openapi": "https://raw.githubusercontent.com/AssemblyAI/assemblyai-api-spec/refs/heads/main/openapi.json"
+      "group": "Integrations",
+      "pages": [
+        {
+          "group": "LlamaIndex",
+          "pages": [
+            "integrations/llamaindex/ts"
+          ]
+        },
+        "integrations/twilio"
+      ]
     }
-  ]
+  ],
+  "footerSocials": {
+    "discord": "https://assemblyai.com/discord",
+    "youtube": "https://www.youtube.com/@assemblyai",
+    "x": "https://www.twitter.com/assemblyai",
+    "linkedin": "https://www.linkedin.com/company/assemblyai"
+  }
 }

@@ -1,110 +1,131 @@
 ---
-title: "Frequently asked questions"
-description: "What file types are supported by the AssemblyAI API? Are there recommended formats?"
+title: "FAQ"
+description: "Commonly asked questions"
 ---
 
-The AssemblyAI API supports most common audio and video file formats. We recommend that you submit your audio in its native format without additional transcoding or file conversion. Transcoding or converting it to another format can sometimes result in a loss of quality, especially if you're converting compressed formats like `.mp3`. The AssemblyAI API converts all files to 16khz uncompressed audio as part of our transcription pipeline.
+<AccordionGroup>
+  <Accordion title="What file types are supported by the AssemblyAI API?">
+    The AssemblyAI API supports most common audio and video file formats. We recommend that you submit your audio in its native format without additional transcoding or file conversion. Transcoding or converting it to another format can sometimes result in a loss of quality, especially if you're converting compressed formats like `.mp3`. The AssemblyAI API converts all files to 16khz uncompressed audio as part of our transcription pipeline.
 
-Note that when you upload a video to our API, the audio will be extracted from it and processed independently, so the list of supported video formats isn't exhaustive. If you need support for a format that isn't listed below, please contact our team at [support@assemblyai.com](mailto:support@assemblyai.com).
+    Note that when you upload a video to our API, the audio will be extracted from it and processed independently, so the list of supported video formats isn't exhaustive. If you need support for a format that isn't listed below, please contact our team at [support@assemblyai.com](mailto:support@assemblyai.com).
 
-| Supported audio file types | Supported video file types  |
-| -------------------------- | --------------------------- |
-| .3ga                       | .webm                       |
-| .8svx                      | .mts, .m2ts, .ts            |
-| .aac                       | .mov                        |
-| .ac3                       | .mp2                        |
-| .aif                       | .mp4, .m4p (with DRM), .m4v |
-| .aiff                      | .mxf                        |
-| .alac                      |                             |
-| .amr                       |                             |
-| .ape                       |                             |
-| .au                        |                             |
-| .dss                       |                             |
-| .flac                      |                             |
-| .flv                       |                             |
-| .m4a                       |                             |
-| .m4b                       |                             |
-| .m4p                       |                             |
-| .m4r                       |                             |
-| .mp3                       |                             |
-| .mpga                      |                             |
-| .ogg, .oga, .mogg          |                             |
-| .opus                      |                             |
-| .qcp                       |                             |
-| .tta                       |                             |
-| .voc                       |                             |
-| .wav                       |                             |
-| .wma                       |                             |
-| .wv                        |                             |
+    | Supported audio file types | Supported video file types |
+| --- | --- |
+| .3ga | .webm |
+| .8svx | .mts, .m2ts, .ts |
+| .aac | .mov |
+| .ac3 | .mp2 |
+| .aif | .mp4, .m4p (with DRM), .m4v |
+| .aiff | .mxf |
+| .alac |  |
+| .amr |  |
+| .ape |  |
+| .au |  |
+| .dss |  |
+| .flac |  |
+| .flv |  |
+| .m4a |  |
+| .m4b |  |
+| .m4p |  |
+| .m4r |  |
+| .mp3 |  |
+| .mpga |  |
+| .ogg, .oga, .mogg |  |
+| .opus |  |
+| .qcp |  |
+| .tta |  |
+| .voc |  |
+| .wav |  |
+| .wma |  |
+| .wv |  |
+  </Accordion>
 
-What are the API limits on file size or file duration?
+  <Accordion title="What are the API limits on file size or file duration?">
+    Currently, there are two main limitations:
 
-Currently, the maximum file size that can be submitted to the `/v2/transcript` endpoint for transcription is **5GB**, and the maximum duration is **10** hours.
+    - Maximum file size for `/v2/transcript` endpoint: **5GB**
+    - Maximum duration: **10 hours**
+    - Maximum file size for `/v2/upload` endpoint: **2.2GB**
+  </Accordion>
 
-The maximum file size for a local file uploaded to the API via the `/v2/upload` endpoint is **2.2GB**.
+  <Accordion title="How long does transcription take?">
+    The vast majority of files will complete in **under 45 seconds**, with a Real-Time-Factor (RTF) as low as .008x.
 
-How long does transcription take?
+    To put this into perspective:
+    - 1h3min (75MB) meeting → 35 seconds
+    - 3h15min (191MB) podcast → 133 seconds
+    - 8h21min (464MB) video course → 300 seconds
 
-Processing times for our asynchronous transcription API are based on the duration of the submitted audio and models enabled in the request but the vast majority of files sent to our API will complete in **under 45 seconds**, and with a Real-Time-Factor (RTF) as low as .008x.
+    Files submitted for Streaming Speech-to-Text receive a response within a few hundred milliseconds.
+  </Accordion>
 
-To put an RTF of .008x into perspective, this means you can convert a:
+  <Accordion title="How do timestamps work?">
+    The response for a completed request includes `start` and `end` keys. These timestamp values indicate when a given word, phrase, or sentence starts and ends. They are:
+    - Measured in milliseconds
+    - Accurate to within about 400 milliseconds
+  </Accordion>
 
-* 1h3min (75MB) meeting in 35 seconds
-* 3h15min (191MB) podcast in 133 seconds
-* 8h21min (464MB) video course in 300 seconds
+  <Accordion title="How do Custom Vocabulary and Custom Spelling features work?">
+    **Custom Vocabulary**
+    - Allows submission of words/phrases to boost prediction likelihood
+    - Helps with under-represented terms in training data
 
-Files submitted for Streaming Speech-to-Text receive a response within a few hundred milliseconds.
+    **Custom Spelling**
+    - Controls word spelling/formatting in transcript text
+    - Works like find-and-replace functionality
+  </Accordion>
 
-Can I get timestamps for individual words? How do timestamps work?
+  <Accordion title="How long are files stored and can they be deleted?">
+    **File Storage:**
+    - Files are encrypted in transit
+    - Deleted immediately after transcription completion
+    - Uploaded but untranscribed files are deleted after 24 hours
+    - Upload URLs become invalid after deletion
 
-The response for a completed request includes `start` and `end` keys. These keys are timestamp values for when a given word, phrase, or sentence starts and ends. These values are in milliseconds and are accurate to within about 400 milliseconds.
+    **Transcript Management:**
+    - Transcripts are stored encrypted at rest
+    - Can be [deleted permanently via API request](https://assemblyai.com/docs/api-reference/transcripts/delete)
+    - [List all transcripts](https://assemblyai.com/docs/api-reference/transcripts/list) with a GET request
+  </Accordion>
 
-How do the Custom Vocabulary and Custom Spelling features work?
+  <Accordion title="What's the difference between Speech-to-Text tiers?">
+    **Best Tier**
+    - Most robust and accurate offering
+    - Houses most powerful models
+    - Broadest range of capabilities
+    - Ideal for accuracy-critical use cases
 
-The **Custom Vocabulary** feature allows you to submit a list of words or phrases to boost the likelihood that the model predicts those words. This is intended to help with words or terms that might be under-represented in the training data.
+    **Nano Tier**
+    - Fast, lightweight offering
+    - Supports 99 languages
+    - Cost-effective price point
+    - Best for extensive language needs
+  </Accordion>
 
-The **Custom Spelling** feature allows you to control how words are spelled or formatted in the transcript text. It works like a find and replace feature — anytime you would see X in the API output, it'll be replaced with Y.
+  <Accordion title="Do you offer discounts and how can I get support?">
+    **Discounts**
+    - Volume discounts available for large-scale usage
+    - Contact [support@assemblyai.com](mailto:support@assemblyai.com) for eligibility
 
-How long are audio or video files submitted to the API stored?
+    **Support**
+    - JSON responses include `error` key with descriptive messages
+    - Email [support@assemblyai.com](mailto:support@assemblyai.com) for assistance
+    - Include transcript IDs and detailed issue description when contacting support
+  </Accordion>
 
-Files submitted to our API are encrypted in transit, and all submitted audio or video data is deleted from our servers as soon as the transcription has completed.
+  <Accordion title="How do custom speech recognition models compare with general models?">
+    Custom models are rarely more accurate than the best general models due to several factors:
 
-If you upload a local file but don't transcribe it, we delete it after 24 hours. The corresponding `upload_url` will no longer be valid.
+    - General models are trained on massive datasets (600,000+ hours of speech data)
+    - Training data includes diverse audio types:
+      - Broadcast TV recordings
+      - Phone calls
+      - Zoom meetings
+      - Videos
+      - Various accents and speakers
 
-You can also [delete the transcript](https://assemblyai.com/docs/api-reference/transcripts/delete) itself at any time.
+    Custom models are mainly beneficial for audio with unique characteristics unseen by general models, though these cases are rare due to the comprehensive training of general models.
 
-Can completed transcripts be deleted?
-
-Completed transcripts are stored in our database, encrypted at rest, so that we can serve it to you and your application.
-
-To permanently delete the transcription from our database once you've retrieved it, you can [make a `DELETE` request to the API](https://assemblyai.com/docs/api-reference/transcripts/delete).
-
-Can I get a list of all transcripts I have created?
-
-You can retrieve a list of all transcripts that you have created by [making a `GET` request to the API](https://assemblyai.com/docs/api-reference/transcripts/list).
-
-What's the difference between the Speech-to-Text tiers?
-
-AssemblyAI’s [Best tier](/speech-to-text/speech-recognition#select-the-speech-model-with-best-and-nano) is our most robust and accurate offering, houses our most powerful models, and has the broadest range of capabilities. The Best tier is suited for use cases where accuracy is paramount.
-
-AssemblyAI’s [Nano tier](/speech-to-text/speech-recognition#select-the-speech-model-with-best-and-nano) is a fast, lightweight offering that gives product and development teams access to Speech AI at a cost-effective price point across 99 languages. It is best for teams with extensive language needs, and those who are looking for a low-cost Speech AI option.
-
-Do you offer any discounts on pricing?
-
-If you plan to send a large amount of audio or video content through our API, please reach out to [support@assemblyai.com](mailto:support@assemblyai.com) to see if you qualify for a volume discount.
-
-How can I get more information about an error? How do I contact support?
-
-Any time you make a request to the API, you should receive a JSON response. If you don't receive the expected output, the JSON contains an `error` key with a message value describing the error.
-
-You can also can reach out to our support team any time by sending an email to [support@assemblyai.com](mailto:support@assemblyai.com). When reaching out, please include a detailed description of any issues you're experiencing as well as transcript IDs for affected requests, if possible.
-
-How do custom speech recognition models compare with general models?
-
-In the field of automatic speech recognition (ASR), custom models are rarely more accurate than the best general models ([learn more about one measure of accuracy, Word Error Rate, here](https://www.assemblyai.com/blog/word-error-rate/)). This is because general models are trained on huge datasets, and are constantly maintained and updated using the latest deep learning research.
-
-For example, at AssemblyAI, we train large deep neural networks on over 600,000 hours of speech data. This training data is a mix of many different types of audio (broadcast TV recordings, phone calls, Zoom meetings, videos, etc.), accents, and speakers. This massive amount of diverse training data helps our ASR models to generalize extremely well across all types of audio/data, speakers, recording quality, and accents when converting Speech-to-Text in the real world.
-
-Custom models usually come into the mix when dealing with audio data that have unique characteristics unseen by a general model. However, because large, accurate general models see most types of audio data during training, there aren't many “unique characteristics” that would trip up a general model - or that a custom model could even learn.
-
-To learn more about this and related topics, see the [AssemblyAI blog](https://www.assemblyai.com/blog/do-i-need-a-custom-speech-recognition-model/).
+    Learn more about this topic on the [AssemblyAI blog](https://www.assemblyai.com/blog/do-i-need-a-custom-speech-recognition-model/).
+  </Accordion>
+</AccordionGroup>

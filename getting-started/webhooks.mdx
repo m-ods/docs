@@ -1,6 +1,6 @@
 ---
 title: "Webhooks"
-description: "Webhooks are custom HTTP callbacks that you can define to get notified when your transcripts are ready."
+description: Webhooks are custom HTTP callbacks that you can define to get notified when your transcripts are ready
 ---
 
 To use webhooks, you need to set up your own webhook receiver to handle webhook deliveries.
@@ -11,25 +11,64 @@ To create a webhook, use `set_webhook()` on the transcription config. The URL mu
 
 Use `submit()` instead of `transcribe()` to create a transcription without waiting for it to complete.
 
+<CodeGroup>
+
+```python Python
+import assemblyai as aai
+
+aai.settings.api_key = "YOUR_API_KEY"
+
+# audio_file = "./local_file.mp3"
+audio_file = "https://assembly.ai/wildfires.mp3"
+
+config = aai.TranscriptionConfig().set_webhook("https://example.com/webhook")
+
+aai.Transcriber().submit(audio_file, config)
+```
+
+```typescript Typescript
+import { AssemblyAI } from 'assemblyai'
+
+const client = new AssemblyAI({
+  apiKey: 'YOUR_API_KEY'
+})
+
+// const audioFile = './local_file.mp3'
+const audioFile =
+  'https://assembly.ai/wildfires.mp3'
+
+client.transcripts.submit({
+  audio: audioFile,
+  webhook_url: 'https://example.com/webhook'
+})
+```
+
+</CodeGroup>
+
 ## Handle webhook deliveries[​](#handle-webhook-deliveries "Direct link to Handle webhook deliveries")
 
 When the transcript is ready, AssemblyAI will send a `POST` HTTP request to the URL that you specified.
 
-<Note>
-  AssemblyAI sends all webhook deliveries from the same IP address, 44.238.19.20.
-</Note>
+<Info>
+
+Sender's IP address
+
+AssemblyAI sends all webhook deliveries from the same IP address, 44.238.19.20.
+
+</Info>
 
 ### Delivery payload[​](#delivery-payload "Direct link to Delivery payload")
 
 The webhook delivery payload contains a JSON object with the following properties:
 
-```
+```js
+{transcript_id:"5552493-16d8-42d8-8feb-c2a16b56f6e8",status:"completed"}
 ```
 
-| Key             | Type   | Description                                                  |
-| --------------- | ------ | ------------------------------------------------------------ |
-| `transcript_id` | string | The ID of the transcript.                                    |
-| `status`        | string | The status of the transcript. Either `completed` or `error`. |
+| Key | Type | Description |
+| --- | --- | --- |
+| `transcript_id` | string | The ID of the transcript. |
+| `status` | string | The status of the transcript. Either `completed` or `error`. |
 
 ## Authenticate webhook deliveries[​](#authenticate-webhook-deliveries "Direct link to Authenticate webhook deliveries")
 
@@ -37,11 +76,33 @@ You can authenticate webhook deliveries from AssemblyAI by including a custom HT
 
 To add an authentication header, include the auth header name and value in `set_webhook()`.
 
+<CodeGroup>
+
+```python Python
+config = aai.TranscriptionConfig().set_webhook(
+    "https://example.com/webhook", "X-My-Webhook-Secret", "secret-value"
+)
+
+aai.Transcriber().submit(audio_url, config)
+```
+
+```typescript Typescript
+client.transcripts.submit({
+  audio:
+    'https://assembly.ai/wildfires.mp3',
+  webhook_url: 'https://example.com/webhook'
+  webhook_auth_header_name: "X-My-Webhook-Secret",
+  webhook_auth_header_value: "secret-value"
+})
+```
+
+</CodeGroup>
+
 ## Add metadata to webhook deliveries[​](#add-metadata-to-webhook-deliveries "Direct link to Add metadata to webhook deliveries")
 
 To associate metadata for a specific transcription request, you can add your own query parameters to the webhook URL.
 
-```
+```sh
 https://example.com/webhook?customer_id=1234&order_id=5678
 ```
 
@@ -53,6 +114,10 @@ Webhook deliveries can fail for multiple reasons. For example, if your server is
 
 If a webhook delivery fails, AssemblyAI will attempt to redeliver it up to 10 times, waiting 10 seconds between each attempt. If all attempts fail, AssemblyAI considers the delivery as permanently failed.
 
-<Check>
-  `submit()` returns an object with the ID of the transcription. If the webhook delivery fails, you can use this ID to retrieve the transcript later.
-</Check>
+<Tip>
+
+Tip
+
+`submit()` returns an object with the ID of the transcription. If the webhook delivery fails, you can use this ID to retrieve the transcript later.
+
+</Tip>

@@ -1,6 +1,6 @@
 ---
 title: "CLI"
-description: "Get up and running with AssemblyAI's CLI"
+description: Get up and running with AssemblyAI's CLI
 ---
 
 The AssemblyAI CLI lets you interact with the AssemblyAI production-ready AI models with a single command. With the CLI, you can transcribe and understand audio files, generate subtitles, and perform a variety of other tasks right from your Terminal.
@@ -11,13 +11,35 @@ You can also learn the content on this page from [Summarize any video using only
 
 The AssemblyAI CLI supports Windows, macOS, and Linux. You can get the CLI via the [Homebrew](https://brew.sh/) package manager or install it directly, depending on your platform.
 
+<CodeGroup>
+```sh Homebrew
+brew tap assemblyai/assemblyai
+brew install assemblyai
+```
+
+```sh macOS or Linux
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/AssemblyAI/assemblyai-cli/main/install.sh)"
+```
+
+```sh Windows
+# Installing using Scoop
+scoop bucket add assemblyai https://github.com/assemblyai/scoop-assemblyai.git
+scoop install assemblyai
+
+# Or via PowerShell as an administrator
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+irm https://raw.githubusercontent.com/AssemblyAI/assemblyai-cli/main/install.ps1 | iex
+New-Alias -Name assemblyai -Value $Env:Programfiles/AssemblyAI/assemblyai.exe
+```
+</CodeGroup>
+
 ## Getting started[​](#getting-started "Direct link to Getting started")
 
 ### Set up your API key
 
-Before you can use the AssemblyAI CLI, you'll need to obtain an API key by to AssemblyAI. You can then set it up by running the following command:
+Before you can use the AssemblyAI CLI, you'll need to obtain an API key by [signing up](https://www.assemblyai.com/dashboard/signup) to AssemblyAI. You can then set it up by running the following command:
 
-```
+```sh
 assemblyai config YOUR_API_KEY 
 ```
 
@@ -27,7 +49,7 @@ To transcribe an audio file, use the `transcribe` command, followed by the path 
 
 **Note**: The CLI accepts YouTube links, but the API does not work with YouTube links! When working with the API, you need to provide a local file or a URL that points to a publicly accessible audio/video file. For example, files in an S3 bucket, on your server, etc.
 
-```
+```sh
 assemblyai transcribe ~/audio/my_audio_file.mp3
 ```
 
@@ -35,7 +57,7 @@ assemblyai transcribe ~/audio/my_audio_file.mp3
 
 The AssemblyAI CLI accepts YouTube video links as input and can process videos of up to 4 hours.
 
-```
+```sh
 assemblyai transcribe "https://www.youtube.com/watch?v=UdgRUCVUts0"
 ```
 
@@ -47,7 +69,7 @@ Some of the available flags include `--summarization` and `--dual_channel`, whic
 
 To see the full list of available flags, use the `--help` argument.
 
-```
+```sh
 assemblyai transcribe --help
 ```
 

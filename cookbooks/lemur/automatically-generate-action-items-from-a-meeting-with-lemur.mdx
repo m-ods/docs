@@ -1,0 +1,64 @@
+---
+title: "Automatically Generate Action Items From A Meeting With LeMUR"
+description: Learn how to use AssemblyAI's LeMUR
+---
+
+In this guide, you'll learn how to use AssemblyAI [LeMUR](https://www.assemblyai.com/docs/api-reference/lemur/task) to process an audio file and then automatically generate action items from the meeting's transcript.
+
+## Overview[​](#overview "Direct link to Overview")
+
+Before we begin, make sure you have an AssemblyAI account and an API key. You can [sign up for an AssemblyAI account](https://www.assemblyai.com/app) and get your API key from your dashboard.
+
+LeMUR features are currently only available to paid users at two pricing tiers, LeMUR Default and LeMUR Basic. Refer to our [pricing page](https://www.assemblyai.com/pricing) for more detail.
+
+## Step-by-step instructions[​](#step-by-step-instructions "Direct link to Step-by-step instructions")
+
+In this guide, you'll use AssemblyAI to transcribe a meeting recording. Then, you'll request a list of action items from LeMUR.
+
+1. Import the `assemblyai` package and set your API key
+
+
+
+```python 
+import assemblyai as aai
+aai.settings.api_key = "YOUR_API_KEY" 
+```
+
+2. Use the `Transcriber` object's `transcribe` method and pass in the audio file's path as a parameter. The `transcribe` method will save the results of the transcription to the `Transcribe` object's `transcript` attribute.
+
+
+```python Python
+transcriber = aai.Transcriber()
+transcript = transcriber.transcribe("meeting.mp3")
+```
+
+    
+3. Define your LeMUR request `context` and `answer_format` parameters for the Action Items feature.
+
+
+```python Python
+# context is any information that would not be present in the transcript but may be helpful to know when generating action items
+context = """This is a Product team meeting from 2019-07-09.
+            Generate Action Items from the meeting in the following format:"""
+# answer_format defines how you want the action items from LeMUR to be presented.
+answer_format = """
+            Action Item Title: A brief, descriptive title that summarizes the action item.
+            Assignee: The person who is responsible for completing the action item.
+            Due Date: The deadline for completing the action item.
+            Status: The current status of the action item (e.g., "In progress", "Completed", "Deferred").
+            Notes: Any additional notes or information about the action item."""
+```
+
+4. Run the `action_items` method on `transcript` and print the result to your terminal.
+
+
+```python Python
+result = transcript.lemur.task(prompt)
+
+print(result.response)
+```
+
+
+
+
+

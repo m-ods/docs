@@ -1,22 +1,24 @@
 ---
-title: "Usage limits"
-description: "To ensure a smooth experience for all users, certain operations have per-account usage limits."
+title: "Usage Limits"
+description: Learn our usage limits
 ---
 
-* **Concurrency limits** for asynchronous operations
-* **Rate limits** for synchronous operations
+To ensure a smooth experience for all users, certain operations have per-account usage limits.
 
-<Note>
-  The usage limits displayed on this page are default values based on your account type. If you already have a paid account and want to further increase your usage limits, [contact our Sales team](https://www.assemblyai.com/contact) or send an email to our [Support team](mailto:support@assemblyai.com).
-</Note>
+*   **Concurrency limits** for asynchronous operations
+*   **Rate limits** for synchronous operations
+
+Increasing your usage limits
+
+The usage limits displayed on this page are default values based on your account type. If you already have a paid account and want to further increase your usage limits, [contact our Sales team](https://www.assemblyai.com/contact) or send an email to our [Support team](/docs/getting-started/support@assemblyai.com).
 
 ## Speech-to-Text usage limits[​](#speech-to-text-usage-limits "Direct link to Speech-to-Text usage limits")
 
 AssemblyAI limits the number of transcriptions being processed at any given time.
 
-| Usage limit               | Free account | Paid account |
-| ------------------------- | ------------ | ------------ |
-| Concurrent transcriptions | 5            | 200          |
+| Usage limit | Free account | Paid account |
+| --- | --- | --- |
+| Concurrent transcriptions | 5 | 200 |
 
 If you submit a transcription that would exceed your usage limit, it'll be added to a queue. Queued transcriptions will be processed automatically as previously submitted transcriptions complete.
 
@@ -24,31 +26,31 @@ If your account balance goes below zero, your concurrency limit will be reduced 
 
 If you exceed your concurrency limit, you'll receive an email stating that your transcripts have been throttled. Note that you'll only receive this email once per day.
 
-![Email notifying user that their transcripts have been throttled due to exceeding the Concurrency limit](/images/docs/getting-started/docs/assets/images/limit-445c74c69d53dbd18aee90f4d072a4e3.png)
+![Email notifying user that their transcripts have been throttled due to exceeding the Concurrency limit](https://www.assemblyai.com/docs/assets/images/limit-445c74c69d53dbd18aee90f4d072a4e3.png)
 
 ## Streaming Speech-to-Text usage limits[​](#streaming-speech-to-text-usage-limits "Direct link to Streaming Speech-to-Text usage limits")
 
 AssemblyAI limits the number of concurrent sessions.
 
-| Usage limit                   | Free account | Paid account |
-| ----------------------------- | ------------ | ------------ |
-| Concurrent Streaming sessions | N/A\*        | 100          |
+| Usage limit | Free account | Paid account |
+| --- | --- | --- |
+| Concurrent Streaming sessions | N/A\* | 100 |
 
 \* Streaming Speech-to-Text is only available for paid users.
 
-<Note>
-  If you're consistently exceeding the limit of concurrent sessions, first make sure that you're terminating sessions properly.
+Properly terminating sessions
 
-  * If you're using the [WebSocket API](https://www.assemblyai.com/docs/api-reference/streaming/realtime) directly, you need to send a `terminate_session` message.
-  * If you're using one of the SDKs, consult the docs for the specific SDK you're using.
-</Note>
+If you're consistently exceeding the limit of concurrent sessions, first make sure that you're terminating sessions properly.
+
+*   If you're using the [WebSocket API](https://www.assemblyai.com/docs/api-reference/streaming/realtime) directly, you need to send a `terminate_session` message.
+*   If you're using one of the SDKs, consult the docs for the specific SDK you're using.
 
 ## LeMUR usage limits[​](#lemur-usage-limits "Direct link to LeMUR usage limits")
 
 LeMUR requests are rate limited within a 60-second time window. For more information, see [Rate limits](https://www.assemblyai.com/docs/api-reference/overview#rate-limits).
 
-| Usage limit         | Free account | Paid account |
-| ------------------- | ------------ | ------------ |
-| Requests per minute | N/A\*        | 30           |
+| Usage limit | Free account | Paid account |
+| --- | --- | --- |
+| Requests per minute | N/A\* | 30 |
 
 \* LeMUR is only available for paid users.

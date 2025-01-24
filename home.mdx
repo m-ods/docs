@@ -1,0 +1,157 @@
+---
+mode: 'custom'
+---
+
+export function openSearch() {
+  document.getElementById('search-bar-entry').click();
+}
+
+<div className="relative w-full flex items-center justify-center" style={{ height: '32rem', overflow: 'hidden'}}>
+  <div 
+    id="background-div" 
+    className="absolute inset-0 dark:hidden" 
+    style={{
+      height: "32rem",
+      backgroundImage: "url('https://mintlify-assets.b-cdn.net/Light%20BG.png')",
+      backgroundSize: "cover",
+      backgroundPosition: "center"
+    }}
+  />
+  <div 
+    id="background-div-dark" 
+    className="absolute inset-0 hidden dark:block" 
+    style={{
+      height: "32rem",
+      backgroundImage: "url('https://mintlify-assets.b-cdn.net/Dark%20BG.png')",
+      backgroundSize: "cover",
+      backgroundPosition: "center"
+    }}
+  />
+  <div style={{ position: 'absolute', textAlign: 'center', padding: '0 1rem', maxWidth: '1500px' }}>
+    <div
+      className="text-gray-900 dark:text-gray-200"
+      style={{
+       fontWeight: '800',
+       fontSize: '2rem',
+       margin: '0'
+      }}
+    >
+      <span class="dark:text-gray-200 text-gray-900"> AssemblyAI Documentation</span>
+    </div>
+    <p className="mt-4 dark:text-gray-200 text-gray-900">Build with our leading Speech AI models </p>
+    <div className="flex items-center justify-center" style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <button
+      type="button"
+      className="hidden w-full lg:flex items-center justify-center text-sm leading-6 rounded-full py-4 pl-4 pr-4 text-gray-500 bg-white dark:bg-background-dark hover:border-gray-400 dark:hover:border-gray-600"
+      id="home-search-entry"
+      style={{
+        marginTop: '2rem',
+        margin: '2rem auto 0',
+        width: '600px',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
+        border: '1px solid rgba(255, 255, 255, 0.1)'
+      }}
+      onClick={openSearch}
+    >
+      <svg
+        className="h-4 w-4 ml-2.5 flex-none bg-primary-light hover:bg-gray-600 dark:bg-white/50 dark:hover:bg-white/70"
+        style={{
+          marginRight: '1rem',
+         maskImage:
+           'url("https://mintlify.b-cdn.net/v6.5.1/solid/magnifying-glass.svg")',
+         maskRepeat: 'no-repeat',
+         maskPosition: 'center center',
+        }}
+      />
+      <span>Ask AI anything about AssemblyAI Docs</span>
+    </button>
+    </div>
+
+    <div style={{ maxWidth: '1500px', margin: '0 auto', marginTop: '1rem' }}>
+      <CardGroup cols={4}>
+        <Card
+          class="intro-workspace-card"
+          title="API Reference"
+          icon="file-code"
+          href="/api-reference/api-reference"
+         horizontal={true}
+        />
+        <Card
+          title="FAQs"
+          icon="message"
+          href="/concepts/faq"
+         horizontal={true}
+        />
+        <Card
+          title="Supported Languages"
+          icon="language"
+        href="/getting-started/supported-languages"
+         horizontal={true}
+        />
+        <Card
+          title="Usage Limits"
+          icon="gauge"
+        href="/getting-started/usage-limits"
+         horizontal={true}
+        />
+      </CardGroup>
+      <CardGroup cols={4}>
+        <Card title="Examples" 
+              icon="sparkles"
+              href="/cookbooks/overview"
+              horizontal={true}
+        />
+        <Card
+          title="Integrations"
+          icon="shapes"
+          href="/integrations/llamaindex/ts"
+         horizontal={true}
+        />
+        <Card
+          title="Playground"
+          icon="circle-play"
+          href="https://www.assemblyai.com/playground"
+         horizontal
+        />
+        <Card
+          title="CLI"
+          icon="terminal"
+          href="/concepts/cli"
+         horizontal
+        />
+      </CardGroup>
+    </div>
+  </div>
+</div>
+
+<div
+  style={{marginTop: '3rem', marginBottom: '8rem', maxWidth: '70rem', marginLeft: 'auto',
+   marginRight: 'auto', paddingLeft: '1.25rem',
+   paddingRight: '1.25rem' }}
+>
+<h2 className="text-gray-900 dark:text-gray-200 text-center" style={{marginTop: '16px' ,fontSize: '24px', marginBottom: '16px',fontWeight:'500'}}>Get Started with our SDK Guides in minutes:</h2>
+<CardGroup cols={3}>
+  <Card title="Transcribe an audio file" href="/guides/category/quickstarts" icon="file-waveform" color="blue" iconType="solid">
+    Learn how to transcribe and analyze an audio file.
+
+    <br/>
+    <br/>
+    <br/>
+    Start here <Icon icon="chevron-right" />
+  </Card>
+  <Card title="Transcribe streaming audio from a microphone" href="/guides/replit-workspace/introduction-to-workspace" icon="waveform" color="gold" iconType="solid">
+    Learn how to transcribe streaming audio using Streaming Speech-to-Text.
+    <br/>
+    <br/>
+    Start here <Icon icon="chevron-right" />
+  </Card>
+  <Card title="Apply LLMs to audio files" href="/guides/getting-started/intro-replit" icon="puzzle-piece" color="green" iconType="solid">
+    Learn how to leverage LLMs for speech using LeMUR.
+    <br/>
+    <br/>
+    <br/>
+    Start here <Icon icon="chevron-right" />
+  </Card>
+</CardGroup>
+
+</div>
