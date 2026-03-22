@@ -1,0 +1,44 @@
+# Pipecat Documentation
+
+> Pipecat is an open source framework for building voice and multimodal AI agents.
+
+## About
+
+Pipecat enables developers to build conversational AI applications like personal coaches, meeting assistants, storytelling toys, customer support bots, intake flows, and social companions.
+
+## Documentation
+
+- [Getting Started](https://docs.pipecat.ai/getting-started/overview): Overview, installation, quickstart, and core concepts
+- [Guides](https://docs.pipecat.ai/guides/introduction): Function calling, telephony integration, deployment guides
+- [Server APIs](https://docs.pipecat.ai/server/introduction): Python server-side API reference
+- [Client SDKs](https://docs.pipecat.ai/client/introduction): JavaScript, React, React Native, iOS, Android, and C++ SDKs
+
+## Key Resources
+
+- [Quickstart](https://docs.pipecat.ai/getting-started/quickstart): Build your first voice AI agent
+- [Core Concepts](https://docs.pipecat.ai/getting-started/core-concepts): Understanding pipelines, frames, and processors
+- [Supported Services](https://docs.pipecat.ai/server/services/supported-services): STT, LLM, TTS, and other service integrations
+- [Deployment](https://docs.pipecat.ai/guides/deployment/overview): Deploy to Pipecat Cloud, Fly.io, Cerebrium, or Modal
+
+## Integrations
+
+### Speech-to-Text
+AssemblyAI, AWS, Azure, Deepgram, Gladia, Google, Groq, OpenAI, Whisper
+
+### LLM Providers
+Anthropic, OpenAI, Google Gemini, AWS Bedrock, Azure, Cerebras, DeepSeek, Groq, Ollama, Together AI
+
+### Text-to-Speech
+Cartesia, ElevenLabs, Deepgram, Google, OpenAI, PlayHT, LMNT, Rime
+
+## Community
+
+- [Discord](https://discord.gg/pipecat): Join the Pipecat community
+- [GitHub](https://github.com/pipecat-ai/pipecat): Source code and examples
+- [Examples](https://github.com/pipecat-ai/pipecat/tree/main/examples): Sample implementations
+- [Changelog](https://github.com/pipecat-ai/pipecat/blob/main/CHANGELOG.md): Latest updates
+
+## Contact
+
+- Twitter: [@pipecat_ai](https://x.com/pipecat_ai)
+- Discord: [discord.gg/pipecat](https://discord.gg/pipecat)
